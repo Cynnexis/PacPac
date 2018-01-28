@@ -23,6 +23,10 @@ namespace PacPac
 		private SpriteBatch spriteBatch;
 		private SpriteFont sf_font;
 
+		private GameState state;
+		private GameTime gameTime;
+
+		private Menu menu;
 		private Maze maze;
 		private Blinky blinky;
 		private Pinky pinky;
@@ -33,6 +37,21 @@ namespace PacPac
 		private int score;
 		private int level;
 
+		public GameState State
+		{
+			get { return state; }
+			set
+			{
+				GameState oldValue = state;
+				state = value;
+
+				if (oldValue == GameState.StartMenu && state == GameState.Playing)
+				{
+					SoundManager.Instance.PlayMusic();
+					GhostManager.Instance.PlayBeginning = this.gameTime != null ? (int) this.gameTime.TotalGameTime.TotalSeconds : 0;
+				}
+			}
+		}
 		public int Score
 		{
 			get { return score; }
@@ -68,6 +87,9 @@ namespace PacPac
 		protected override void Initialize()
 		{
 			// TODO: Add your initialization logic here
+			State = GameState.StartMenu;
+
+			menu = new Menu(this);
 			maze = new Maze(this);
 			blinky = new Blinky(this);
 			pinky = new Pinky(this);
@@ -83,6 +105,7 @@ namespace PacPac
 
 			GhostManager.Instance.Initialize(maze, pac, blinky, new Ghost[] { pinky, inky, clyde });
 
+			IsMouseVisible = true;
 			base.Initialize();
 		}
 
@@ -103,7 +126,6 @@ namespace PacPac
 			sf_font = this.Content.Load<SpriteFont>(@"Fonts\Verdana");
 
 			SoundManager.Instance.LoadContent(this);
-			SoundManager.Instance.PlayMusic();
 		}
 
 		/// <summary>
@@ -113,6 +135,7 @@ namespace PacPac
 		protected override void UnloadContent()
 		{
 			// TODO: Unload any non ContentManager content here
+			base.UnloadContent();
 		}
 
 		/// <summary>
@@ -126,7 +149,7 @@ namespace PacPac
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
 				this.Exit();
 
-			// TODO: Add your update logic here
+			this.gameTime = gameTime;
 			GhostManager.Instance.Update(gameTime);
 
 			base.Update(gameTime);
@@ -141,43 +164,53 @@ namespace PacPac
 			GraphicsDevice.Clear(Color.Black);
 			
 			spriteBatch.Begin();
-
-			spriteBatch.DrawString(sf_font,
-				"PacPac",
-				new Vector2(maze.Dimension.Max.X + 10, 20),
-				Color.White);
-
-			spriteBatch.DrawString(sf_font,
-				"Life: ",
-				new Vector2(maze.Dimension.Max.X + 10, 50),
-				Color.White);
-
-			Texture2D tx_pac = PacRepresentation.Instance.CurrentTexture != null ? PacRepresentation.Instance.CurrentTexture : pac.Texture;
-			for (int i = 0; i < pac.Life; i++)
+			switch (State)
 			{
-				spriteBatch.Draw(tx_pac, new Vector2(maze.Dimension.Max.X + 10 + i * Maze.SPRITE_DIMENSION, 80), Color.White);
-			}
+				case GameState.StartMenu:
+					
+					break;
+				case GameState.Pause:
+					break;
+				case GameState.Stop:
+					break;
+				default: // Playing & Pause
+					spriteBatch.DrawString(sf_font,
+						"PacPac",
+						new Vector2(maze.Dimension.Max.X + 10, 20),
+						Color.White);
 
-			spriteBatch.DrawString(sf_font,
-				"Score: " + Score,
-				new Vector2(maze.Dimension.Max.X + 10, 110),
-				Color.White);
+					spriteBatch.DrawString(sf_font,
+						"Life: ",
+						new Vector2(maze.Dimension.Max.X + 10, 50),
+						Color.White);
 
-			spriteBatch.DrawString(sf_font,
-				"Level " + Level,
-				new Vector2(maze.Dimension.Max.X + 10, 140),
-				Color.White);
+					Texture2D tx_pac = PacRepresentation.Instance.CurrentTexture != null ? PacRepresentation.Instance.CurrentTexture : pac.Texture;
+					for (int i = 0; i < pac.Life; i++)
+						spriteBatch.Draw(tx_pac, new Vector2(maze.Dimension.Max.X + 10 + i * Maze.SPRITE_DIMENSION, 80), Color.White);
+
+					spriteBatch.DrawString(sf_font,
+						"Score: " + Score,
+						new Vector2(maze.Dimension.Max.X + 10, 110),
+						Color.White);
+
+					spriteBatch.DrawString(sf_font,
+						"Level " + Level,
+						new Vector2(maze.Dimension.Max.X + 10, 140),
+						Color.White);
 
 #if DEBUG
-			spriteBatch.DrawString(sf_font,
-				"Pac : (" + pac.Position.X + " ; " + pac.Position.Y + ")",
-				new Vector2(maze.Dimension.Max.X + 10, 500),
-				Color.White);
-			spriteBatch.DrawString(sf_font,
-				"       [" + pac.ConvertPositionToTileIndexes().X + ",  " + pac.ConvertPositionToTileIndexes().Y + "]",
-				new Vector2(maze.Dimension.Max.X + 10, 530),
-				Color.White);
+					spriteBatch.DrawString(sf_font,
+						"Pac : (" + pac.Position.X + " ; " + pac.Position.Y + ")",
+						new Vector2(maze.Dimension.Max.X + 10, 500),
+						Color.White);
+					spriteBatch.DrawString(sf_font,
+						"       [" + pac.ConvertPositionToTileIndexes().X + ",  " + pac.ConvertPositionToTileIndexes().Y + "]",
+						new Vector2(maze.Dimension.Max.X + 10, 530),
+						Color.White);
 #endif
+					break;
+			}
+			
 			spriteBatch.End();
 
 			base.Draw(gameTime);
@@ -186,3 +219,5 @@ namespace PacPac
 }
 
 // TODO: Replace Pac.Ghosts by GhostManager.Ghosts
+// TODO: Remove PacRepresentation - It's useless
+// TODO: Fix the bug which kill pac when it eats an edible ghost.

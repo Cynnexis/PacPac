@@ -45,34 +45,34 @@ namespace PacPac.Core
 			set
 			{
 				invincible = value;
-				
-				/*foreach (Ghost g in Ghosts)
-					g.Edible = invincible;*/
 
-				foreach (Ghost g in Ghosts)
-					g.State = invincible ? GhostState.EDIBLE : GhostState.RUNNING;
-
-				if (invincible)
+				if (State == GameState.Playing)
 				{
-					SoundManager.Instance.PauseMusic();
-					SoundManager.Instance.PlayInvincible();
-					if (timer == null)
+					foreach (Ghost g in Ghosts)
+						g.State = invincible ? GhostState.EDIBLE : GhostState.RUNNING;
+
+					if (invincible)
 					{
-						timer = new Timer((Object obj) =>
+						SoundManager.Instance.PauseMusic();
+						SoundManager.Instance.PlayInvincible();
+						if (timer == null)
 						{
-							Invincible = false;
-							timer.Dispose();
-							timer = null;
-						}, null, DEFAULT_INVINCIBLE_TIMEOUT_SECONDS * 1000, Timeout.Infinite);
+							timer = new Timer((Object obj) =>
+							{
+								Invincible = false;
+								timer.Dispose();
+								timer = null;
+							}, null, DEFAULT_INVINCIBLE_TIMEOUT_SECONDS * 1000, Timeout.Infinite);
+						}
+						// If pac eat another fruit while invincible
+						else
+							timer.Change(DEFAULT_INVINCIBLE_TIMEOUT_SECONDS * 1000, Timeout.Infinite);
 					}
-					// If pac eat another fruit while invincible
 					else
-						timer.Change(DEFAULT_INVINCIBLE_TIMEOUT_SECONDS * 1000, Timeout.Infinite);
-				}
-				else
-				{
-					SoundManager.Instance.PlayMusic();
-					SoundManager.Instance.PauseInvincible();
+					{
+						SoundManager.Instance.PlayMusic();
+						SoundManager.Instance.PauseInvincible();
+					}
 				}
 			}
 		}
@@ -179,114 +179,116 @@ namespace PacPac.Core
 		public override void Update(GameTime gameTime)
 		{
 			// TODO: Add your update code here
-			PacRepresentation.Instance.Update(gameTime);
 
-			// If pac is not dying
-			if (!PacRepresentation.Instance.IsDying)
+			if (State == GameState.Playing)
 			{
-				// Updating Position according to the Controls
-				Vector2 oldPos = Position;
-				Vector2 oldTile = ConvertPositionToTileIndexes();
-				if (Controls.CheckKeyState(Controls.PAC_UP))
-				{
-					Position = new Vector2(Position.X, Position.Y - Speed.Y);
-					PacRepresentation.Instance.LookingTo = Direction.UP;
-				}
-				else if (Controls.CheckKeyState(Controls.PAC_LEFT))
-				{
-					Position = new Vector2(Position.X - Speed.X, Position.Y);
-					PacRepresentation.Instance.LookingTo = Direction.LEFT;
-				}
-				else if (Controls.CheckKeyState(Controls.PAC_DOWN))
-				{
-					Position = new Vector2(Position.X, Position.Y + Speed.Y);
-					PacRepresentation.Instance.LookingTo = Direction.DOWN;
-				}
-				else if (Controls.CheckKeyState(Controls.PAC_RIGHT))
-				{
-					Position = new Vector2(Position.X + Speed.X, Position.Y);
-					PacRepresentation.Instance.LookingTo = Direction.RIGHT;
-				}
+				PacRepresentation.Instance.Update(gameTime);
 
-				// Check if the move is valid
-				Vector2 tile = ConvertPositionToTileIndexes();
-				// Get the tile toward pac
-				Cell cellToward = null;
-				bool exceptionReached = false;
-				try
+				// If pac is not dying
+				if (!PacRepresentation.Instance.IsDying)
 				{
-					switch (PacRepresentation.Instance.LookingTo)
+					// Updating Position according to the Controls
+					Vector2 oldPos = Position;
+					Vector2 oldTile = ConvertPositionToTileIndexes();
+					if (Controls.CheckKeyState(Controls.PAC_UP))
 					{
-						case Direction.UP:
-							cellToward = maze[(int)tile.X, (int)tile.Y - 1];
-							break;
-						case Direction.DOWN:
-							cellToward = maze[(int)tile.X, (int)tile.Y + 1];
-							break;
-						case Direction.LEFT:
-							cellToward = maze[(int)tile.X - 1, (int)tile.Y];
-							break;
-						case Direction.RIGHT:
-							cellToward = maze[(int)tile.X + 1, (int)tile.Y];
-							break;
-						default:
-							cellToward = maze[(int)tile.X + 1, (int)tile.Y];
-							break;
+						Position = new Vector2(Position.X, Position.Y - Speed.Y);
+						PacRepresentation.Instance.LookingTo = Direction.UP;
 					}
-				}
-				catch (IndexOutOfRangeException ignored)
-				{
-					Console.Error.WriteLine(ignored.StackTrace);
-					bool didPacTeleport = maze.TM.Teleport(this);
-
-					if (!didPacTeleport)
+					else if (Controls.CheckKeyState(Controls.PAC_LEFT))
 					{
+						Position = new Vector2(Position.X - Speed.X, Position.Y);
+						PacRepresentation.Instance.LookingTo = Direction.LEFT;
+					}
+					else if (Controls.CheckKeyState(Controls.PAC_DOWN))
+					{
+						Position = new Vector2(Position.X, Position.Y + Speed.Y);
+						PacRepresentation.Instance.LookingTo = Direction.DOWN;
+					}
+					else if (Controls.CheckKeyState(Controls.PAC_RIGHT))
+					{
+						Position = new Vector2(Position.X + Speed.X, Position.Y);
+						PacRepresentation.Instance.LookingTo = Direction.RIGHT;
+					}
+
+					// Check if the move is valid
+					Vector2 tile = ConvertPositionToTileIndexes();
+					// Get the tile toward pac
+					Cell cellToward = null;
+					bool exceptionReached = false;
+					try
+					{
+						switch (PacRepresentation.Instance.LookingTo)
+						{
+							case Direction.UP:
+								cellToward = maze[(int)tile.X, (int)tile.Y - 1];
+								break;
+							case Direction.DOWN:
+								cellToward = maze[(int)tile.X, (int)tile.Y + 1];
+								break;
+							case Direction.LEFT:
+								cellToward = maze[(int)tile.X - 1, (int)tile.Y];
+								break;
+							case Direction.RIGHT:
+								cellToward = maze[(int)tile.X + 1, (int)tile.Y];
+								break;
+							default:
+								cellToward = maze[(int)tile.X + 1, (int)tile.Y];
+								break;
+						}
+					}
+					catch (IndexOutOfRangeException ignored)
+					{
+						Console.Error.WriteLine(ignored.StackTrace);
+						bool didPacTeleport = maze.TM.Teleport(this);
+
+						if (!didPacTeleport)
+						{
+							Position = oldPos;
+							exceptionReached = true;
+						}
+					}
+
+					// Check if pac can go forward
+					if (!exceptionReached && cellToward != null && Dimension.Intersects(cellToward.Dimension) && Cell.IsTileTypeBlock(cellToward.Tile))
 						Position = oldPos;
-						exceptionReached = true;
+
+					Ghost ghostDetected = null;
+					if (Ghosts != null)
+						foreach (Ghost g in Ghosts)
+							if (ConvertPositionToTileIndexes().Equals(g.ConvertPositionToTileIndexes()))
+								ghostDetected = g;
+
+					// Check if pac runs into a ghost
+					if (ghostDetected != null)
+					{
+						// If the ghost is edible (pac is in invincible mode), the ghost dies and must returns to the ghost start area
+						if (ghostDetected.State == GhostState.EDIBLE)
+							ghostDetected.Die();
+						// Otherwise, pac loses a life
+						else
+							Die();
 					}
+
+					// Check if pac runs into a pacdot
+					if (maze[(int)tile.X, (int)tile.Y].Tile == TileType.PACDOT)
+					{
+						maze[(int)tile.X, (int)tile.Y].Tile = TileType.EMPTY;
+						((Engine)Game).Score += 1;
+						SoundManager.Instance.PlayPacEatPacDot();
+					}
+					// Check if pac runs into a fruit
+					else if (maze[(int)tile.X, (int)tile.Y].Tile == TileType.FRUIT)
+					{
+						maze[(int)tile.X, (int)tile.Y].Tile = TileType.EMPTY;
+						((Engine)Game).Score += 50;
+						Invincible = true;
+						//SoundManager.Instance.PlayInvincible();
+					}
+					// Check if pac runs into a teleporter
+					else if (maze[(int)tile.X, (int)tile.Y].Tile == TileType.TELEPORTER)
+						maze.TM.Teleport(this);
 				}
-
-				// Check if pac can go forward
-				if (!exceptionReached && cellToward != null && Dimension.Intersects(cellToward.Dimension) && Cell.IsTileTypeBlock(cellToward.Tile))
-					Position = oldPos;
-
-
-				//bool ghostDetected = false;
-				Ghost ghostDetected = null;
-				if (Ghosts != null)
-					foreach (Ghost g in Ghosts)
-						if (ConvertPositionToTileIndexes().Equals(g.ConvertPositionToTileIndexes()))
-							ghostDetected = g;
-
-				// Check if pac runs into a ghost
-				if (ghostDetected != null)
-				{
-					// If the ghost is edible (pac is in invincible mode), the ghost dies and must returns to the ghost start area
-					if (ghostDetected.State == GhostState.EDIBLE)
-						ghostDetected.Die();
-					// Otherwise, pac loses a life
-					else
-						Die();
-				}
-
-				// Check if pac runs into a pacdot
-				if (maze[(int)tile.X, (int)tile.Y].Tile == TileType.PACDOT)
-				{
-					maze[(int)tile.X, (int)tile.Y].Tile = TileType.EMPTY;
-					((Engine)Game).Score += 1;
-					SoundManager.Instance.PlayPacEatPacDot();
-				}
-				// Check if pac runs into a fruit
-				else if (maze[(int)tile.X, (int)tile.Y].Tile == TileType.FRUIT)
-				{
-					maze[(int)tile.X, (int)tile.Y].Tile = TileType.EMPTY;
-					((Engine)Game).Score += 50;
-					Invincible = true;
-					//SoundManager.Instance.PlayInvincible();
-				}
-				// Check if pac runs into a teleporter
-				else if (maze[(int)tile.X, (int)tile.Y].Tile == TileType.TELEPORTER)
-					maze.TM.Teleport(this);
 			}
 
 			base.Update(gameTime);
@@ -294,15 +296,19 @@ namespace PacPac.Core
 
 		public override void Draw(GameTime gameTime)
 		{
-			if (Texture == null)
+			if (State == GameState.Playing)
 			{
-				PacRepresentation.Instance.RefreshTexture();
-				Texture = PacRepresentation.Instance.CurrentTexture;
+				if (Texture == null)
+				{
+					PacRepresentation.Instance.RefreshTexture();
+					Texture = PacRepresentation.Instance.CurrentTexture;
+				}
+
+				Sprite.Begin();
+				Sprite.Draw(Texture, Position, Color.Yellow);
+				Sprite.End();
 			}
-			
-			Sprite.Begin();
-			Sprite.Draw(Texture, Position, Color.Yellow);
-			Sprite.End();
+
 			base.Draw(gameTime);
 		}
 		#endregion

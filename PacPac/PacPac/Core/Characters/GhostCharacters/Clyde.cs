@@ -12,26 +12,47 @@ namespace PacPac.Core.Characters.GhostCharacters
 {
 	public class Clyde : Ghost
 	{
-		public static int COUNTDOWN = 6; // seconds
+		/// <summary>
+		/// Countdown until Clyde can update its strategy
+		/// </summary>
+		public static int COUNTDOWN = 7; // seconds
+
+		/// <summary>
+		/// Last time Clyde updated its strategy
+		/// </summary>
+		public static int lastStrategyUpdate; // seconds
 		private Vector2 goal; // In tile indexes
 		private bool hasFallenInInfiniteLoop;
 
 		public Clyde(Game game) : base(game)
 		{
 			hasFallenInInfiniteLoop = false;
+			lastStrategyUpdate = -1;
 			this.Game.Components.Add(this);
 		}
 
 		/// <summary>
 		/// Clyde Strategy: Clyde moves randmoly on the map. When pac is in the same row/column of pac, the ghost
-		/// run to pac to eat it. If Clyde lost ppac, it returns to its routine.
+		/// run to pac to eat it. If Clyde lost pac, it returns to its routine.
 		/// </summary>
 		/// <param name="gameTime"></param>
 		/// <returns></returns>
 		public override Direction? Strategy(GameTime gameTime)
 		{
-			if (ConvertPositionToTileIndexes().Equals(goal) || hasFallenInInfiniteLoop || ((int) Math.Round(gameTime.TotalGameTime.TotalSeconds)) % COUNTDOWN == 0)
+			// If Clyde is in its goal OR dikstra's algorithm fell into an infinite loop OR the countdown is over, then update the strategy
+			if (ConvertPositionToTileIndexes().Equals(goal) || hasFallenInInfiniteLoop || (gameTime.TotalGameTime.TotalSeconds != 0 && ((int)Math.Round(gameTime.TotalGameTime.TotalSeconds)) != lastStrategyUpdate && ((int) Math.Round(gameTime.TotalGameTime.TotalSeconds)) % COUNTDOWN == 0))
 			{
+#if DEBUG
+				if (ConvertPositionToTileIndexes().Equals(goal))
+					Console.WriteLine("Clyde> Reached its goal");
+
+				if (hasFallenInInfiniteLoop)
+					Console.WriteLine("Clyde> Fell into Infinite Loop");
+
+				if ((gameTime.TotalGameTime.TotalSeconds != 0 && ((int)Math.Round(gameTime.TotalGameTime.TotalSeconds)) % COUNTDOWN == 0))
+					Console.WriteLine("Clyde> Countdown (" + gameTime.TotalGameTime.TotalSeconds + "s)");
+#endif
+
 				hasFallenInInfiniteLoop = false;
 
 				// TODO: Check if pac is in the same row/column
@@ -52,9 +73,13 @@ namespace PacPac.Core.Characters.GhostCharacters
 
 				Vector3 result = list[r.Next(0, list.Count)].Dimension.Min;
 				goal = ConvertPositionToTileIndexes(new Vector2(result.X, result.Y));
+#if DEBUG
 				Console.WriteLine("Clyde> Goal: [" + goal.X + " ; " + goal.Y + "] (tile indexes)");
+#endif
+				lastStrategyUpdate = ((int)Math.Round(gameTime.TotalGameTime.TotalSeconds));
 			}
-
+			
+			// Execute the Dijkstra's Algorithm to go to the new goal
 			try
 			{
 				Dijkstra dijkstra = new Dijkstra(GhostManager.Instance.Map);
@@ -63,9 +88,9 @@ namespace PacPac.Core.Characters.GhostCharacters
 						goal
 					);
 			}
-			catch (InfiniteLoopException ex)
+			catch (InfiniteLoopException)
 			{
-				Console.Error.WriteLine(ex.StackTrace);
+				// If the algorithm threw an InfiniteLoopException, indicates that information for the next call of Strategy.
 				hasFallenInInfiniteLoop = true;
 			}
 

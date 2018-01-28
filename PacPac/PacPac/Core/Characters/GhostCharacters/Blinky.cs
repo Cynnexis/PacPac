@@ -15,13 +15,30 @@ namespace PacPac.Core.Characters.GhostCharacters
 {
 	public class Blinky : Ghost
 	{
-		public static int COUNTDOWN = 4; // seconds
+		/// <summary>
+		/// Countdown until Blinky can update its strategy
+		/// </summary>
+		public static int COUNTDOWN = 7; // seconds
+
+		/// <summary>
+		/// Last time Blinky updated its strategy
+		/// </summary>
+		private int lastStrategyUpdate; // seconds
+
+		/// <summary>
+		/// Last direction computed by Dijkstra's Algorithm, in the Strategy method
+		/// </summary>
+		private Direction? lastDirection;
+		private Dijkstra dijkstra;
+
 		private Vector2 pacPos;
 
 		public Blinky(Game game) : base(game)
 		{
 			//Still = false;
 			State = GhostState.RUNNING;
+			lastStrategyUpdate = -1;
+			lastDirection = null;
 			this.Game.Components.Add(this);
 		}
 
@@ -34,12 +51,18 @@ namespace PacPac.Core.Characters.GhostCharacters
 		/// <returns></returns>
 		public override Direction? Strategy(GameTime gameTime)
 		{
-			/*try
+			try
 			{
-				if (ConvertPositionToTileIndexes().Equals(ConvertPositionToTileIndexes(pacPos)) || ((int) Math.Round(gameTime.TotalGameTime.TotalSeconds)) % COUNTDOWN == 0)
+				// If Blinky reached the goal OR it is the first time that Strategy is called OR the countdown is over, then update strategy
+				if (ConvertPositionToTileIndexes().Equals(ConvertPositionToTileIndexes(pacPos)) ||
+					lastStrategyUpdate == -1 ||
+					(lastStrategyUpdate != ((int)Math.Round(gameTime.TotalGameTime.TotalSeconds)) && ((int)Math.Round(gameTime.TotalGameTime.TotalSeconds)) % COUNTDOWN == 0))
+				{
 					pacPos = GhostManager.Instance.Pac.Position;
+					lastStrategyUpdate = ((int)Math.Round(gameTime.TotalGameTime.TotalSeconds));
+				}
 
-				Dijkstra dijkstra = new Dijkstra(GhostManager.Instance.Map);
+				dijkstra = new Dijkstra(GhostManager.Instance.Map);
 				return dijkstra.ComputeDirection(
 						// Start: Current ghost position
 						ConvertPositionToTileIndexes(),
@@ -50,7 +73,7 @@ namespace PacPac.Core.Characters.GhostCharacters
 			catch (InfiniteLoopException ex)
 			{
 				Console.Error.WriteLine(ex.StackTrace);
-			}*/
+			}
 
 			return null;
 		}

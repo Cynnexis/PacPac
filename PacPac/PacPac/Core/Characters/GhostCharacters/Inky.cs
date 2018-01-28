@@ -11,6 +11,15 @@ namespace PacPac.Core.Characters.GhostCharacters
 {
 	public class Inky : Ghost
 	{
+		/// <summary>
+		/// Countdown until Inky can update its strategy
+		/// </summary>
+		public static int COUNTDOWN = 1; // seconds
+
+		/// <summary>
+		/// Last time Inky updated its strategy
+		/// </summary>
+		public static int lastStrategyUpdate; // seconds
 		private AStar astar;
 
 		public Inky(Game game) : base(game)
@@ -22,19 +31,20 @@ namespace PacPac.Core.Characters.GhostCharacters
 		{
 			try
 			{
-				/*Dijkstra dijkstra = new Dijkstra(GhostManager.Instance.Map);
+				Dijkstra dijkstra = new Dijkstra(GhostManager.Instance.Map);
 				return dijkstra.ComputeDirection(
 						// Start: Current ghost position
 						ConvertPositionToTileIndexes(),
 						// Destination: Pac's position
-						GhostManager.Instance.Pac.ConvertPositionToTileIndexes());*/
+						GhostManager.Instance.Pac.ConvertPositionToTileIndexes());
+				/*
 				Path path = astar.ComputePath(
 						// Start: Current ghost position
 						ConvertPositionToTileIndexes(),
 						// Destination: Pac's position
 						GhostManager.Instance.Pac.ConvertPositionToTileIndexes()
 					);
-				return astar.WhichDirection(ConvertPositionToTileIndexes(), path);
+				return astar.WhichDirection(ConvertPositionToTileIndexes(), path);*/
 			}
 			catch (InfiniteLoopException ex)
 			{

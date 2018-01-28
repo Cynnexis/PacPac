@@ -47,6 +47,11 @@ namespace PacPac.Core.Algorithms
 			Map = maze;
 			Nodes = new DNode[Map.Width, Map.Height];
 
+			ResetNodes();
+		}
+
+		public void ResetNodes()
+		{
 			for (int i = 0, maxi = Map.Width; i < maxi; i++)
 			{
 				for (int j = 0, maxj = Map.Height; j < maxj; j++)
@@ -120,7 +125,7 @@ namespace PacPac.Core.Algorithms
 
 				rec++;
 
-				if (rec == 10000)
+				if (rec == 1000)
 					throw new InfiniteLoopException(rec);
 			}
 

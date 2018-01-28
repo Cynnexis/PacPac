@@ -47,3 +47,5 @@ Content\Images\pacdot-s.xnb
 Content\Images\empty_black.xnb
 Content\Images\empty_white.xnb
 Content\Images\transparent.xnb
+Content\Images\play.xnb
+Content\Images\exit.xnb

@@ -8,6 +8,7 @@ using System.Text;
 
 namespace PacPac.Core.Algorithms
 {
+	[Obsolete]
 	public class AStar
 	{
 		private List<ANode> open;

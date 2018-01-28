@@ -27,7 +27,13 @@ namespace PacPac.Core
 		/// This variable is only used in the method "Move(GameTime)".
 		/// <seealso cref="Move(GameTime)"/>
 		/// </summary>
-		private Vector2 currentTileIndexes;
+		protected Vector2 currentTileIndexes;
+
+		/// <summary>
+		/// Last direction computed by the strategy of the ghost. This variable is used in "Move(GameTime)"
+		/// <seealso cref="Move(GameTime)"/>
+		/// </summary>
+		private Direction? lastDirection;
 
 		protected Texture2D tx_ghost;
 		protected Texture2D tx_edible;
@@ -43,6 +49,8 @@ namespace PacPac.Core
 				if (oldValue != state)
 				{
 					Refresh();
+					lastDirection = null;
+					currentTileIndexes = new Vector2(-1, -1);
 					OnGhostStateChangedAction?.Invoke(state);
 				}
 			}
@@ -131,37 +139,38 @@ namespace PacPac.Core
 		{
 			if (GhostManager.Instance.IsInitialized)
 			{
-				// If the position of the ghost changed, then refresh the algorithm
-				if (currentTileIndexes.Equals(ConvertPositionToTileIndexes()))
-				{
-					Direction? direction;
+#if DEBUG
+				//Console.WriteLine("Ghost.Move> currentTileIndexes = " + currentTileIndexes.ToString() + "\t TRUE position = " + ConvertPositionToTileIndexes().ToString());
+#endif
 
+				// If it is the first time than Move is called OR the position of the ghost changed, then refresh the algorithm
+				if (lastDirection == null || currentTileIndexes.Equals(new Vector2(-1, -1)) || !currentTileIndexes.Equals(ConvertPositionToTileIndexes()))
+				{
 					switch (State)
 					{
 						case GhostState.INITIALIZING:
+							lastDirection = null;
 							break;
 						case GhostState.MOVING_MAZE:
-							MoveToMaze();
+							lastDirection = MoveToMaze();
 							break;
 						case GhostState.RUNNING:
-							direction = Strategy(gameTime);
-							if (direction != null)
-								MoveToDirection((Direction)direction);
-							break;
 						case GhostState.EDIBLE:
-							direction = Strategy(gameTime);
-							if (direction != null)
-								MoveToDirection((Direction)direction);
+							lastDirection = Strategy(gameTime);
 							break;
 						case GhostState.EATEN:
-							MoveToStart();
+							lastDirection = MoveToStart();
 							break;
 						default:
+							lastDirection = null;
 							break;
 					}
 
 					currentTileIndexes = ConvertPositionToTileIndexes();
 				}
+
+				if (lastDirection != null)
+					MoveToDirection((Direction)lastDirection);
 			}
 		}
 		
@@ -186,7 +195,7 @@ namespace PacPac.Core
 			}
 		}
 
-		public void MoveToMaze()
+		public Direction? MoveToMaze()
 		{
 			if (State == GhostState.MOVING_MAZE)
 			{
@@ -199,14 +208,18 @@ namespace PacPac.Core
 					);
 
 					if (dir != null)
-						MoveToDirection((Direction) dir);
+					{
+						MoveToDirection((Direction)dir);
+						return dir;
+					}
 					else
 						State = GhostState.RUNNING;
 				}
 			}
+			return null;
 		}
 
-		public void MoveToStart()
+		public Direction? MoveToStart()
 		{
 			Dijkstra dijkstra = new Dijkstra(GhostManager.Instance.Map);
 			Direction? direction = dijkstra.ComputeDirection(
@@ -216,23 +229,15 @@ namespace PacPac.Core
 							ConvertPositionToTileIndexes(StartingPoint));
 
 			if (direction != null)
-				MoveToDirection((Direction)direction);
+			{
+				//MoveToDirection((Direction)direction);
+				return direction;
+			}
 			// Else, if the ghost arrives
 			else
 				State = GhostState.RUNNING;
-		}
-		
-		public static Random GetRandomInstance()
-		{
-			return new Random(
-#if DEBUG
-					// If DEBUG, use the same seed for each execution
-					42
-#else
-					// If RELEASE, use the UNIX timestamp as seed
-					(int) (DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds)
-#endif
-					);
+
+			return null;
 		}
 
 		#region GameComponent Overrides
@@ -243,7 +248,7 @@ namespace PacPac.Core
 		public override void Initialize()
 		{
 			Position = StartingPoint;
-			currentTileIndexes = ConvertPositionToTileIndexes();
+			//currentTileIndexes = ConvertPositionToTileIndexes();
 			Speed = new Vector2(1.5f, 1.5f);
 
 			base.Initialize();
@@ -268,7 +273,7 @@ namespace PacPac.Core
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public override void Update(GameTime gameTime)
 		{
-			if (!Possessed)
+			if (!Possessed && base.State == GameState.Playing)
 				Move(gameTime);
 
 			base.Update(gameTime);
@@ -276,9 +281,12 @@ namespace PacPac.Core
 
 		public override void Draw(GameTime gameTime)
 		{
-			Sprite.Begin();
-			Sprite.Draw(Texture, Position, Color.White);
-			Sprite.End();
+			if (base.State == GameState.Playing)
+			{
+				Sprite.Begin();
+				Sprite.Draw(Texture, Position, Color.White);
+				Sprite.End();
+			}
 			base.Draw(gameTime);
 		}
 		#endregion

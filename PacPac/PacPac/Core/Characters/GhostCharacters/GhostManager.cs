@@ -14,6 +14,7 @@ namespace PacPac.Core.Characters.GhostCharacters
 	{
 		private static GhostManager instance = new GhostManager();
 
+		private int gameBeginning;
 		private List<Ghost> ghosts;
 		private Maze maze;
 		private Pac pac;
@@ -23,6 +24,15 @@ namespace PacPac.Core.Characters.GhostCharacters
 		public static GhostManager Instance
 		{
 			get { return instance; }
+		}
+
+		/// <summary>
+		/// In seconds
+		/// </summary>
+		public int PlayBeginning
+		{
+			get { return gameBeginning; }
+			set { gameBeginning = value; }
 		}
 		public List<Ghost> Ghosts
 		{
@@ -52,6 +62,7 @@ namespace PacPac.Core.Characters.GhostCharacters
 
 		private GhostManager()
 		{
+			PlayBeginning = -1;
 			Ghosts = new List<Ghost>(4);
 			IsInitialized = false;
 		}
@@ -92,18 +103,24 @@ namespace PacPac.Core.Characters.GhostCharacters
 
 		public void Update(GameTime gameTime)
 		{
-			// Every 5 secondes, the game release a ghost
-			if (gameTime.TotalGameTime.TotalSeconds != 0 && ((int) Math.Round(gameTime.TotalGameTime.TotalSeconds)) % 5 == 0)
+			if (PlayBeginning != -1)
 			{
-				int index = (int) gameTime.TotalGameTime.TotalSeconds / 5;
-
-				if (index > 0 && index < Ghosts.Count)
+				// Every 5 secondes, the game releases a ghost
+				if ((gameTime.TotalGameTime.TotalSeconds - PlayBeginning) != 0 &&
+					((int)Math.Round(gameTime.TotalGameTime.TotalSeconds - PlayBeginning)) % 5 == 0)
 				{
-					Ghost g = Ghosts[gameTime.TotalGameTime.Seconds / 5];
-					if (g.State == GhostState.INITIALIZING)
+					int index = (int) (gameTime.TotalGameTime.TotalSeconds - PlayBeginning) / 5;
+
+					if (index > 0 && index < Ghosts.Count)
 					{
-						g.State = GhostState.MOVING_MAZE;
-						Console.WriteLine("Ghost n°" + index + " is released!");
+						Ghost g = Ghosts[index];
+						if (g.State == GhostState.INITIALIZING)
+						{
+							g.State = GhostState.MOVING_MAZE;
+#if DEBUG
+							Console.WriteLine("Ghost n°" + (index + 1) + " is released");
+#endif
+						}
 					}
 				}
 			}

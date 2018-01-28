@@ -17,7 +17,7 @@
     <XnaCrossPlatformGroupID>ac89b60f-cb94-405d-ab4a-e0d2891c22de</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
     <ApplicationIcon>Game.ico</ApplicationIcon>
-    <Thumbnail>GameThumbnail.png</Thumbnail>
+    <Thumbnail>pacman_rc.png</Thumbnail>
     <PublishUrl>publier\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -98,6 +98,7 @@
     <Compile Include="Core\Characters\PacCharacter\PacRepresentation.cs" />
     <Compile Include="Core\Teleporter.cs" />
     <Compile Include="Core\TeleporterManager.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="Grid\Cell.cs" />
     <Compile Include="Core\Exceptions\BoundingBoxException.cs" />
     <Compile Include="Grid\Exceptions\EmptyMazeFileException.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="Core\Exceptions\TeleporterException.cs" />
     <Compile Include="Grid\Maze.cs" />
     <Compile Include="Grid\TileType.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Engine.cs" />
@@ -116,6 +118,7 @@
     <Content Include="GameThumbnail.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </Content>
+    <Content Include="pacman_rc.png" />
     <Content Include="Resources\Maps\maze1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

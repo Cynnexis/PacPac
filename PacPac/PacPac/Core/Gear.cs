@@ -80,6 +80,23 @@ namespace PacPac.Core
 					OnSpeedChangedAction?.Invoke(speed);
 			}
 		}
+		public GameState State
+		{
+			get
+			{
+				GameState state = GameState.Playing;
+				try
+				{
+					state = ((Engine) Game).State;
+				}
+				catch (InvalidCastException ex)
+				{
+					Console.Error.WriteLine(ex.StackTrace);
+				}
+
+				return state;
+			}
+		}
 		#endregion
 
 		#region Action Delegates

@@ -250,20 +250,23 @@ namespace PacPac.Grid
 
 		public override void Draw(GameTime gameTime)
 		{
-			int nbSpriteWidth = cells.GetLength(0);
-			int nbSpriteHeight = cells.GetLength(1);
-
-			Sprite.Begin();
-			for (int i = 0; i < nbSpriteWidth; i++)
+			if (State == GameState.Playing)
 			{
-				for (int j = 0; j < nbSpriteHeight; j++)
+				int nbSpriteWidth = cells.GetLength(0);
+				int nbSpriteHeight = cells.GetLength(1);
+
+				Sprite.Begin();
+				for (int i = 0; i < nbSpriteWidth; i++)
 				{
-					Sprite.Draw(GetTileTexture(this[i, j].Tile),
-									new Vector2(i * SPRITE_DIMENSION, j * SPRITE_DIMENSION),
-									Color.Azure);
+					for (int j = 0; j < nbSpriteHeight; j++)
+					{
+						Sprite.Draw(GetTileTexture(this[i, j].Tile),
+										new Vector2(i * SPRITE_DIMENSION, j * SPRITE_DIMENSION),
+										Color.Azure);
+					}
 				}
+				Sprite.End();
 			}
-			Sprite.End();
 
 			base.Draw(gameTime);
 		}
