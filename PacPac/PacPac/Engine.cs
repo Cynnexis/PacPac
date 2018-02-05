@@ -220,4 +220,5 @@ namespace PacPac
 
 // TODO: Replace Pac.Ghosts by GhostManager.Ghosts
 // TODO: Remove PacRepresentation - It's useless
+// TODO: Implement Pinky's strategy
 // TODO: Fix the bug which kill pac when it eats an edible ghost.

@@ -266,7 +266,7 @@ namespace PacPac.Core
 						if (ghostDetected.State == GhostState.EDIBLE)
 							ghostDetected.Die();
 						// Otherwise, pac loses a life
-						else
+						else if (ghostDetected.State != GhostState.EATEN)
 							Die();
 					}
 

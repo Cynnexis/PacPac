@@ -25,10 +25,6 @@ namespace PacPac.Core.Characters.GhostCharacters
 		/// </summary>
 		private int lastStrategyUpdate; // seconds
 
-		/// <summary>
-		/// Last direction computed by Dijkstra's Algorithm, in the Strategy method
-		/// </summary>
-		private Direction? lastDirection;
 		private Dijkstra dijkstra;
 
 		private Vector2 pacPos;
@@ -38,7 +34,6 @@ namespace PacPac.Core.Characters.GhostCharacters
 			//Still = false;
 			State = GhostState.RUNNING;
 			lastStrategyUpdate = -1;
-			lastDirection = null;
 			this.Game.Components.Add(this);
 		}
 

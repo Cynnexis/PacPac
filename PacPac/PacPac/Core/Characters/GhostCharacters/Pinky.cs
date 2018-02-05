@@ -14,89 +14,136 @@ namespace PacPac.Core.Characters.GhostCharacters
 {
 	public class Pinky : Ghost
 	{
+		/// <summary>
+		/// Countdown until Pinky can update its strategy
+		/// </summary>
+		public static int COUNTDOWN = 2; // seconds
+
+		/// <summary>
+		/// Last time Pinky updated its strategy
+		/// </summary>
+		private int lastStrategyUpdate; // seconds
+
+		private Vector2 goal;
+		private bool hasFallenInInfiniteLoop;
+
 		public Pinky(Game game) : base(game)
 		{
+			lastStrategyUpdate = -1;
+			goal = new Vector2(-1, -1);
+			hasFallenInInfiniteLoop = false;
 			this.Game.Components.Add(this);
 		}
 
 		/// <summary>
-		/// Pinky Strategy: Land on a square of 4x4 tiles located 2 tiles in front of pac
+		/// Pinky Strategy: Land on a square of 10x10 tiles located 2 tiles in front of pac
 		/// to ambush him.
 		/// <para>
 		/// Note: In the first Pac-Man game, Pinky had actually an overflow bug.
 		/// When Pac-Man was turn upward, near the limit of the grid, Pinky tried to land
-		/// in another area, near Pac-Man.In this version, the program won't simulate this bug.
+		/// in another area, near Pac-Man. In this version, the program won't simulate this bug.
 		/// </para>
 		/// </summary>
 		/// <param name="gameTime"></param>
 		/// <returns></returns>
 		public override Direction? Strategy(GameTime gameTime)
 		{
-			// Get a grid of 4x4 of cell in front of pac:
-			/*Cell[,] area = new Cell[4,4];
-			Vector2 pac = GhostManager.Instance.Pac.ConvertPositionToTileIndexes();
-			int width = GhostManager.Instance.Map.Width;
-			int height = GhostManager.Instance.Map.Height;
-			int mini, maxi;
-			int minj, maxj;
-			switch (PacRepresentation.Instance.LookingTo)
-			{
-				case Direction.UP:
-					mini = (int) pac.X - 2;
-					maxi = (int) pac.X + 1;
-					minj = (int) pac.Y - 6;
-					maxj = (int) pac.Y - 3;
-					break;
-				case Direction.DOWN:
-					mini = (int)pac.X - 2;
-					maxi = (int)pac.X + 1;
-					minj = (int)pac.Y + 3;
-					maxj = (int)pac.Y + 6;
-					break;
-				case Direction.LEFT:
-					mini = (int)pac.X - 6;
-					maxi = (int)pac.X - 3;
-					minj = (int)pac.Y - 1;
-					maxj = (int)pac.Y + 2;
-					break;
-				default:
-					mini = (int)pac.X + 3;
-					maxi = (int)pac.X + 6;
-					minj = (int)pac.Y - 2;
-					maxj = (int)pac.Y + 1;
-					break;
-			}
+			// Get a grid of 10x10 of cell in front of pac:
+			Cell[,] area = new Cell[10, 10];
+			List<Cell> available = new List<Cell>();
 
-			// Get all the cells from the maze. If one coordinate is out of range, replace it bu null in the array.
-			for (int i = mini; i <= maxi; i++)
+			// If Pkinky is in its goal OR dikstra's algorithm fell into an infinite loop OR the countdown is over, then update the strategy
+			if (ConvertPositionToTileIndexes().Equals(goal) ||
+				hasFallenInInfiniteLoop ||
+				lastStrategyUpdate == -1 ||
+				(gameTime.TotalGameTime.TotalSeconds != 0 &&
+				((int)Math.Round(gameTime.TotalGameTime.TotalSeconds)) != lastStrategyUpdate &&
+				((int)Math.Round(gameTime.TotalGameTime.TotalSeconds)) % COUNTDOWN == 0))
 			{
-				for (int j = minj; j <= maxj; j++)
+				Vector2 pac = GhostManager.Instance.Pac.ConvertPositionToTileIndexes();
+				int width = GhostManager.Instance.Map.Width;
+				int height = GhostManager.Instance.Map.Height;
+				int mini, maxi;
+				int minj, maxj;
+				switch (PacRepresentation.Instance.LookingTo)
 				{
-					if (0 <= i && i < width &&
-						0 <= j && j < height)
-						area[i - mini, j - minj] = GhostManager.Instance.Map[i, j];
-					else
-						area[i - mini, j - minj] = null;
+					case Direction.UP:
+						mini = (int) pac.X - 5;
+						maxi = (int) pac.X + 4;
+						minj = (int) pac.Y - 12;
+						maxj = (int) pac.Y - 3;
+						break;
+					case Direction.DOWN:
+						mini = (int)pac.X - 5;
+						maxi = (int)pac.X + 4;
+						minj = (int)pac.Y + 3;
+						maxj = (int)pac.Y + 12;
+						break;
+					case Direction.LEFT:
+						mini = (int)pac.X - 12;
+						maxi = (int)pac.X - 3;
+						minj = (int)pac.Y - 4;
+						maxj = (int)pac.Y + 5;
+						break;
+					default:
+						mini = (int)pac.X + 3;
+						maxi = (int)pac.X + 12;
+						minj = (int)pac.Y - 5;
+						maxj = (int)pac.Y + 4;
+						break;
 				}
-			}
 
-			Vector2 goal = new Vector2(-1, -1);
-			int rec = 0;
-			while (goal.Equals(new Vector2(-1, -1)))
-			{
+				// Get all the cells from the maze. If one coordinate is out of range, replace it bu null in the array.
+				for (int i = mini; i <= maxi; i++)
+				{
+					for (int j = minj; j <= maxj; j++)
+					{
+						if (0 <= i && i < width &&
+							0 <= j && j < height)
+							area[i - mini, j - minj] = GhostManager.Instance.Map[i, j];
+						else
+							area[i - mini, j - minj] = null;
+					}
+				}
+
+				// Select only available tiles
+				for (int i = 0; i < area.GetLength(0); i++)
+					for (int j = 0; j < area.GetLength(1); j++)
+						if (area[i, j] != null && !Cell.IsTileTypeBlock(area[i, j].Tile))
+							available.Add(area[i, j]);
+				
 				Random r = new Random((int)Math.Round(gameTime.TotalGameTime.TotalMilliseconds));
-				int x = r.Next(0, 4);
-				int y = r.Next(0, 4);
+				Vector3 result = Vector3.Zero;
 
-				if (area[x, y] != null)
+				// If no tiles has been found, go to a random place
+				if (available.Count <= 0)
 				{
-					Vector3 result = area[x, y].Dimension.Min;
-					goal = new Vector2(result.X, result.Y);
+					while (result.Equals(new Vector3(0, 0, 0)))
+					{
+						// Get all the pacdot tiles
+						List<Cell> list = GhostManager.Instance.Map.SearchTile(TileType.PACDOT);
+
+						// If the list is null, instanciate it
+						if (list == null)
+							list = new List<Cell>();
+
+						// If there is not enough tiles, add the empty ones to the list
+						if (list.Count <= 20)
+							list.AddRange(GhostManager.Instance.Map.SearchTile(TileType.EMPTY));
+
+						// Amongst all the tiles, get one randomly
+						result = list[r.Next(0, list.Count)].Dimension.Min;
+					}
+					goal = ConvertPositionToTileIndexes(new Vector2(result.X, result.Y));
+				}
+				else
+				{
+					result = available[r.Next(0, available.Count)].Dimension.Min;
+					goal = ConvertPositionToTileIndexes(new Vector2(result.X, result.Y));
 				}
 
-				rec++;
-				if (rec >= 100)
-					throw new InfiniteLoopException();
+				hasFallenInInfiniteLoop = false;
+				lastStrategyUpdate = ((int)Math.Round(gameTime.TotalGameTime.TotalSeconds));
 			}
 
 			try
@@ -105,13 +152,12 @@ namespace PacPac.Core.Characters.GhostCharacters
 				return dijkstra.ComputeDirection(
 						// Start: Current ghost position
 						ConvertPositionToTileIndexes(),
-						// Destination: Pac's position
-						ConvertPositionToTileIndexes(goal));
+						goal);
 			}
 			catch (InfiniteLoopException ex)
 			{
-				Console.Error.WriteLine(ex.StackTrace);
-			}*/
+				hasFallenInInfiniteLoop = true;
+			}
 
 			return null;
 		}
