@@ -62,6 +62,7 @@ namespace PacPac.Core.Characters.GhostCharacters
 
 				if (randomMode)
 				{
+					/*
 					// Get all the pacdot tiles
 					List<Cell> list = GhostManager.Instance.Map.SearchTile(TileType.PACDOT);
 
@@ -78,6 +79,17 @@ namespace PacPac.Core.Characters.GhostCharacters
 
 					Vector3 result = list[r.Next(0, list.Count)].Dimension.Min;
 					goal = ConvertPositionToTileIndexes(new Vector2(result.X, result.Y));
+					*/
+
+					Vector2? res = GenerateRandomPlace();
+
+					if (res == null)
+					{
+						hasFallenInInfiniteLoop = true;
+						return null;
+					}
+
+					goal = (Vector2)res;
 				}
 
 				hasFallenInInfiniteLoop = false;

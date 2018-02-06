@@ -14,6 +14,11 @@ namespace PacPac.Core.Characters.GhostCharacters
 	{
 		private static GhostManager instance = new GhostManager();
 
+		/// <summary>
+		/// Each <c>COUNTDOWN_RELEASE_GHOST</c>, <c>GhostManager</c> releases a ghost from the startup point to the maze.
+		/// </summary>
+		public static int COUNTDOWN_RELEASE_GHOST = 10; // seconds
+
 		private int gameBeginning;
 		private List<Ghost> ghosts;
 		private Maze maze;
@@ -107,9 +112,9 @@ namespace PacPac.Core.Characters.GhostCharacters
 			{
 				// Every 5 secondes, the game releases a ghost
 				if ((gameTime.TotalGameTime.TotalSeconds - PlayBeginning) != 0 &&
-					((int)Math.Round(gameTime.TotalGameTime.TotalSeconds - PlayBeginning)) % 5 == 0)
+					((int)Math.Round(gameTime.TotalGameTime.TotalSeconds - PlayBeginning)) % COUNTDOWN_RELEASE_GHOST == 0)
 				{
-					int index = (int) (gameTime.TotalGameTime.TotalSeconds - PlayBeginning) / 5;
+					int index = (int) (gameTime.TotalGameTime.TotalSeconds - PlayBeginning) / COUNTDOWN_RELEASE_GHOST;
 
 					if (index > 0 && index < Ghosts.Count)
 					{

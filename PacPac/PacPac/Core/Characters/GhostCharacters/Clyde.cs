@@ -46,22 +46,15 @@ namespace PacPac.Core.Characters.GhostCharacters
 				((int)Math.Round(gameTime.TotalGameTime.TotalSeconds)) != lastStrategyUpdate &&
 				((int) Math.Round(gameTime.TotalGameTime.TotalSeconds)) % COUNTDOWN == 0))
 			{
-				// Get all the pacdot tiles
-				List<Cell> list = GhostManager.Instance.Map.SearchTile(TileType.PACDOT);
+				Vector2? res = GenerateRandomPlace();
 
-				// If the list is null, instanciate it
-				if (list == null)
-					list = new List<Cell>();
+				if (res == null)
+				{
+					hasFallenInInfiniteLoop = true;
+					return null;
+				}
 
-				// If there is not enough tiles, add the empty ones to the list
-				if (list.Count <= 20)
-					list.AddRange(GhostManager.Instance.Map.SearchTile(TileType.EMPTY));
-
-				// Amongst all the tiles, get one randomly
-				Random r = new Random((int) Math.Round(gameTime.TotalGameTime.TotalMilliseconds));
-
-				Vector3 result = list[r.Next(0, list.Count)].Dimension.Min;
-				goal = ConvertPositionToTileIndexes(new Vector2(result.X, result.Y));
+				goal = (Vector2) res;
 
 				hasFallenInInfiniteLoop = false;
 				lastStrategyUpdate = ((int)Math.Round(gameTime.TotalGameTime.TotalSeconds));

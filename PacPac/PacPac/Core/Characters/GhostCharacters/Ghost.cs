@@ -129,7 +129,6 @@ namespace PacPac.Core
 
 		public override void Die()
 		{
-			//Eaten = true;
 			State = GhostState.EATEN;
 		}
 
@@ -139,10 +138,6 @@ namespace PacPac.Core
 		{
 			if (GhostManager.Instance.IsInitialized)
 			{
-#if DEBUG
-				//Console.WriteLine("Ghost.Move> currentTileIndexes = " + currentTileIndexes.ToString() + "\t TRUE position = " + ConvertPositionToTileIndexes().ToString());
-#endif
-
 				// If it is the first time than Move is called OR the position of the ghost changed, then refresh the algorithm
 				if (lastDirection == null || currentTileIndexes.Equals(new Vector2(-1, -1)) || !currentTileIndexes.Equals(ConvertPositionToTileIndexes()))
 				{
@@ -155,8 +150,28 @@ namespace PacPac.Core
 							lastDirection = MoveToMaze();
 							break;
 						case GhostState.RUNNING:
-						case GhostState.EDIBLE:
 							lastDirection = Strategy(gameTime);
+							break;
+						case GhostState.EDIBLE:
+							//lastDirection = Strategy(gameTime);
+							Vector2? possiblePlace = GenerateRandomPlace();
+
+							if (possiblePlace == null)
+								lastDirection = null;
+							else
+							{
+#pragma warning disable CS0168
+								try
+								{
+									Dijkstra dijkstra = new Dijkstra(GhostManager.Instance.Map);
+									lastDirection = dijkstra.ComputeDirection(
+										ConvertPositionToTileIndexes(),
+										(Vector2) possiblePlace
+									);
+								}
+								catch (InfiniteLoopException ignored) { }
+#pragma warning restore CS0168
+							}
 							break;
 						case GhostState.EATEN:
 							lastDirection = MoveToStart();
@@ -236,6 +251,30 @@ namespace PacPac.Core
 			// Else, if the ghost arrives
 			else
 				State = GhostState.RUNNING;
+
+			return null;
+		}
+
+		public Vector2? GenerateRandomPlace()
+		{
+			if (GhostManager.Instance.IsInitialized) {
+				// Get all the pacdot tiles
+				List<Cell> list = GhostManager.Instance.Map.SearchTile(TileType.PACDOT);
+
+				// If the list is null, instanciate it
+				if (list == null)
+					list = new List<Cell>();
+
+				// If there is not enough tiles, add the empty ones to the list
+				if (list.Count <= 20)
+					list.AddRange(GhostManager.Instance.Map.SearchTile(TileType.EMPTY));
+
+				// Amongst all the tiles, get one randomly
+				Random r = new Random();
+
+				Vector3 result = list[r.Next(0, list.Count)].Dimension.Min;
+				return ConvertPositionToTileIndexes(new Vector2(result.X, result.Y));
+			}
 
 			return null;
 		}

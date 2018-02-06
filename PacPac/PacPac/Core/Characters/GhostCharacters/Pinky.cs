@@ -113,11 +113,11 @@ namespace PacPac.Core.Characters.GhostCharacters
 							available.Add(area[i, j]);
 				
 				Random r = new Random((int)Math.Round(gameTime.TotalGameTime.TotalMilliseconds));
-				Vector3 result = Vector3.Zero;
 
 				// If no tiles has been found, go to a random place
 				if (available.Count <= 0)
 				{
+					/*
 					while (result.Equals(new Vector3(0, 0, 0)))
 					{
 						// Get all the pacdot tiles
@@ -135,10 +135,21 @@ namespace PacPac.Core.Characters.GhostCharacters
 						result = list[r.Next(0, list.Count)].Dimension.Min;
 					}
 					goal = ConvertPositionToTileIndexes(new Vector2(result.X, result.Y));
+					*/
+
+					Vector2? res = GenerateRandomPlace();
+
+					if (res == null)
+					{
+						hasFallenInInfiniteLoop = true;
+						return null;
+					}
+
+					goal = (Vector2) res;
 				}
 				else
 				{
-					result = available[r.Next(0, available.Count)].Dimension.Min;
+					Vector3 result = available[r.Next(0, available.Count)].Dimension.Min;
 					goal = ConvertPositionToTileIndexes(new Vector2(result.X, result.Y));
 				}
 
