@@ -37,6 +37,12 @@ namespace PacPac
 		private int score;
 		private int level;
 
+		/// <summary>
+		/// When this attribute is true, it means that during the previous game, pacman died, and a "Game Over" screen must be displayed.
+		/// Default value is false.
+		/// </summary>
+		private bool pacDied;
+
 		public GameState State
 		{
 			get { return state; }
@@ -73,9 +79,7 @@ namespace PacPac
 		{
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
-
-			Score = 0;
-			Level = 1;
+			pacDied = false;
 		}
 
 		/// <summary>
@@ -86,10 +90,14 @@ namespace PacPac
 		/// </summary>
 		protected override void Initialize()
 		{
-			// TODO: Add your initialization logic here
 			State = GameState.StartMenu;
 
-			menu = new Menu(this);
+			Score = 0;
+			Level = 1;
+
+			this.Components.Clear();
+
+			menu = new Menu(this, pacDied ? MenuType.GAMEOVER : MenuType.START);
 			maze = new Maze(this);
 			blinky = new Blinky(this);
 			pinky = new Pinky(this);
@@ -105,7 +113,19 @@ namespace PacPac
 
 			GhostManager.Instance.Initialize(maze, pac, blinky, new Ghost[] { pinky, inky, clyde });
 
+			menu.Initialize();
+			maze.Initialize();
+			blinky.Initialize();
+			pinky.Initialize();
+			inky.Initialize();
+			clyde.Initialize();
+			pac.Initialize();
+
 			IsMouseVisible = true;
+
+			// Reset pacDied attribute
+			pacDied = false;
+
 			base.Initialize();
 		}
 
@@ -152,6 +172,16 @@ namespace PacPac
 			this.gameTime = gameTime;
 			GhostManager.Instance.Update(gameTime);
 
+			// Check if pac is dead
+			if (pac.Life <= 0)
+			{
+				// Reset the game
+				SoundManager.Instance.StopMusic();
+				SoundManager.Instance.StopInvincible();
+				pacDied = true;
+				Initialize();
+			}
+
 			base.Update(gameTime);
 		}
 
@@ -167,7 +197,7 @@ namespace PacPac
 			switch (State)
 			{
 				case GameState.StartMenu:
-					
+					// See Menu
 					break;
 				case GameState.Pause:
 					break;
@@ -220,9 +250,8 @@ namespace PacPac
 
 // TODO: Replace Pac.Ghosts by GhostManager.Ghosts
 // TODO: Remove PacRepresentation - It's useless
-// TODO: Implement Game Over screen
+// TODO: Enhance Menu screen
 
 /* COMMIT:
- * Random movement enchanced
- * Ghost can now run away when they are edible
+ * Start/Game-Over screen implemented.
 */

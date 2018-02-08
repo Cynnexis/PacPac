@@ -74,6 +74,12 @@ namespace PacPac.Core.Characters.GhostCharacters
 
 		public void Initialize(Maze maze, Pac pac, Ghost leader, Ghost[] others)
 		{
+			PlayBeginning = -1;
+			if (Ghosts == null)
+				Ghosts = new List<Ghost>(4);
+			else
+				Ghosts.Clear();
+
 			Map = maze;
 			Pac = pac;
 			Ghosts.Add(leader);
