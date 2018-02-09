@@ -79,23 +79,16 @@ namespace PacPac
 		{
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
+
 			pacDied = false;
 		}
 
-		/// <summary>
-		/// Allows the game to perform any initialization it needs to before starting to run.
-		/// This is where it can query for any required services and load any non-graphic
-		/// related content.  Calling base.Initialize will enumerate through any components
-		/// and initialize them as well.
-		/// </summary>
-		protected override void Initialize()
+		public void NewGame()
 		{
-			State = GameState.StartMenu;
-
-			Score = 0;
-			Level = 1;
-
 			this.Components.Clear();
+
+			SoundManager.Instance.StopMusic();
+			SoundManager.Instance.StopInvincible();
 
 			menu = new Menu(this, pacDied ? MenuType.GAMEOVER : MenuType.START);
 			maze = new Maze(this);
@@ -103,7 +96,7 @@ namespace PacPac
 			pinky = new Pinky(this);
 			inky = new Inky(this);
 			clyde = new Clyde(this);
-			
+
 			pac = new Pac(this, maze);
 
 			pac.Ghosts.Add(blinky);
@@ -121,10 +114,28 @@ namespace PacPac
 			clyde.Initialize();
 			pac.Initialize();
 
-			IsMouseVisible = true;
-
 			// Reset pacDied attribute
 			pacDied = false;
+		}
+
+		/// <summary>
+		/// Allows the game to perform any initialization it needs to before starting to run.
+		/// This is where it can query for any required services and load any non-graphic
+		/// related content.  Calling base.Initialize will enumerate through any components
+		/// and initialize them as well.
+		/// </summary>
+		protected override void Initialize()
+		{
+			SoundManager.Instance.LoadContent(this);
+
+			State = GameState.StartMenu;
+
+			Score = 0;
+			Level = 1;
+
+			NewGame();
+
+			IsMouseVisible = true;
 
 			base.Initialize();
 		}
@@ -144,8 +155,6 @@ namespace PacPac
 			graphics.ApplyChanges();
 
 			sf_font = this.Content.Load<SpriteFont>(@"Fonts\Verdana");
-
-			SoundManager.Instance.LoadContent(this);
 		}
 
 		/// <summary>
@@ -172,14 +181,22 @@ namespace PacPac
 			this.gameTime = gameTime;
 			GhostManager.Instance.Update(gameTime);
 
-			// Check if pac is dead
-			if (pac.Life <= 0)
+			if (State == GameState.Playing)
 			{
-				// Reset the game
-				SoundManager.Instance.StopMusic();
-				SoundManager.Instance.StopInvincible();
-				pacDied = true;
-				Initialize();
+				// Check if pac ate all pacdot
+				if (maze.SearchTile(TileType.PACDOT).Count == 0 && maze.SearchTile(TileType.FRUIT).Count == 0)
+				{
+					Level++;
+					NewGame();
+					SoundManager.Instance.PlayMusic();
+				}
+				// Check if pac is dead
+				else if (pac.Life <= 0)
+				{
+					// Reset the game
+					pacDied = true;
+					Initialize();
+				}
 			}
 
 			base.Update(gameTime);
@@ -253,5 +270,7 @@ namespace PacPac
 // TODO: Enhance Menu screen
 
 /* COMMIT:
- * Start/Game-Over screen implemented.
+ * Level system implemented
+ * SoundManager bug fixed
+ * Bug that free all ghosts from the startup point when a fruit is eaten by pac is now fixed
 */

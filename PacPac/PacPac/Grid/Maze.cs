@@ -86,7 +86,7 @@ namespace PacPac.Grid
 			Width = 0;
 			Height = 0;
 
-			Path = "Resources/Maps/maze1.txt";
+			Path = "Resources/Maps/test_win.txt";
 			Import(path);
 
 			this.Game.Components.Add(this);

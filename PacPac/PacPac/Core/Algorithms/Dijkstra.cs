@@ -129,10 +129,6 @@ namespace PacPac.Core.Algorithms
 					throw new InfiniteLoopException(rec);
 			}
 
-#if DEBUG
-			Console.WriteLine("Dijkstra.ComputeDirection> rec = " + rec);
-#endif
-
 			Vector2 next = this[current].Previous;
 			Direction result;
 

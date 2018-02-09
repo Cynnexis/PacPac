@@ -123,6 +123,9 @@
     <Content Include="Resources\Maps\maze1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Maps\test_win.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PacPacContent\PacPacContent.contentproj">

@@ -49,7 +49,8 @@ namespace PacPac.Core
 				if (State == GameState.Playing)
 				{
 					foreach (Ghost g in Ghosts)
-						g.State = invincible ? GhostState.EDIBLE : GhostState.RUNNING;
+						if (g.State != GhostState.INITIALIZING && g.State != GhostState.MOVING_MAZE)
+							g.State = invincible ? GhostState.EDIBLE : GhostState.RUNNING;
 
 					if (invincible)
 					{

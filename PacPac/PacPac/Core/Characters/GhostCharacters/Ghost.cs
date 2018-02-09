@@ -56,48 +56,6 @@ namespace PacPac.Core
 			}
 		}
 
-		/*
-		/// <summary>
-		/// Indicate if the ghost can be hurt by pac, because it is invincible
-		/// </summary>
-		public bool Edible
-		{
-			get { return edible; }
-			set
-			{
-				edible = value;
-
-				Refresh();
-			}
-		}
-
-		/// <summary>
-		/// Indicate if the ghost is not moving, in the ghost start point
-		/// </summary>
-		public bool Still
-		{
-			get { return still; }
-			set { still = value; }
-		}
-
-		/// <summary>
-		/// Indicate if the ghost is moving from the startup point to the entrance of the maze
-		/// </summary>
-		public bool IsMovingToMaze
-		{
-			get { return isMovingToMaze; }
-			set { isMovingToMaze = value; }
-		}
-
-		/// <summary>
-		/// Indicate if the ghost has been eaten by pac, and is moving to the ghost start point
-		/// </summary>
-		public bool Eaten
-		{
-			get { return eaten; }
-			set { eaten = value; }
-		}*/
-
 		/// <summary>
 		/// Indicate if the ghost is moving because of another entity.
 		/// If Possessed = true, then the ghost is not moving accoridng to its algorithm, but by another method/class, such as
