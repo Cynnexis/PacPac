@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace PacPac
 {
-	public class SoundManager
+	public class SoundManager : AbstractSingleton
 	{
 		private static SoundManager instance = new SoundManager();
 
@@ -23,23 +23,14 @@ namespace PacPac
 		private SoundEffectInstance sei_invincible;
 		private bool toggle;
 
-		private bool isInitialized;
-
 		public static SoundManager Instance
 		{
 			get { return instance; }
 		}
 
-		public bool IsInitialized
-		{
-			get { return isInitialized; }
-			protected set { isInitialized = value; }
-		}
-
-		private SoundManager()
+		private SoundManager() : base()
 		{
 			toggle = false;
-			isInitialized = false;
 		}
 
 		public void LoadContent(Game game)

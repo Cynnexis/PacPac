@@ -47,4 +47,12 @@ Content\Sounds\PacmanEaten.xnb
 Content\Sounds\PacmanEatPacdot0.xnb
 Content\Sounds\PacmanEatPacdot1.xnb
 Content\Fonts\Verdana.xnb
+Content\Images\play.xnb
+Content\Images\exit.xnb
+Content\Fonts\Arcade.xnb
+Content\Fonts\Crackman.xnb
+Content\Fonts\Arcade.spritefont
+Content\Fonts\arcadeclassic.ttf
+Content\Fonts\crackman.ttf
 Resources\Maps\maze1.txt
+Resources\Maps\test_win.txt

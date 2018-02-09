@@ -49,3 +49,8 @@ Content\Sounds\PacmanEatPacdot0.xnb
 Content\Sounds\PacmanEatPacdot1.xnb
 Content\Fonts\Verdana.xnb
 Content\Musics\Siren.xnb
+Content\Fonts\arcade.xnb
+Content\Fonts\Crackman.xnb
+Content\Fonts\Arcade.spritefont
+Content\Fonts\arcadeclassic.ttf
+Content\Fonts\crackman.ttf

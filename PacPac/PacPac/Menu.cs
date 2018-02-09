@@ -112,11 +112,11 @@ namespace PacPac
 		{
 			if (GetState() == GameState.StartMenu)
 			{
-				SpriteFont sf_font = Game.Content.Load<SpriteFont>(@"Fonts\Verdana");
-
 				sprite.Begin();
-				sprite.DrawString(sf_font, Type == MenuType.START ? "Start" : "Game Over",
-					new Vector2((Game.GraphicsDevice.Viewport.Width / 2) - 20, Game.GraphicsDevice.Viewport.Height / 6), Color.White);
+				sprite.DrawString(FontManager.Instance.Arcade,
+					Type == MenuType.START ? "Start" : "Game Over",
+					new Vector2((Game.GraphicsDevice.Viewport.Width / 2) - 20, Game.GraphicsDevice.Viewport.Height / 6),
+					Color.White);
 				sprite.Draw(tx_play, playPos, Color.White);
 				sprite.Draw(tx_exit,
 					exitPos,

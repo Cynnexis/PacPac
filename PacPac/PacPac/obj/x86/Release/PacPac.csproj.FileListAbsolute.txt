@@ -64,3 +64,15 @@ C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\Pa
 C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\obj\x86\Release\PacPac.exe
 C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\obj\x86\Release\PacPac.pdb
 C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\obj\x86\Release\PacPac.csprojResolveAssemblyReference.cache
+C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Release\Resources\Maps\test_win.txt
+C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Release\Content\Images\play.xnb
+C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Release\Content\Images\exit.xnb
+C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Release\Content\Fonts\Arcade.xnb
+C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Release\Content\Fonts\Crackman.xnb
+C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Release\Content\Fonts\Arcade.spritefont
+C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Release\Content\Fonts\arcadeclassic.ttf
+C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Release\Content\Fonts\crackman.ttf
+C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Release\PacPac.exe.manifest
+C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Release\PacPac.application
+C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\obj\x86\Release\PacPac.exe.manifest
+C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\obj\x86\Release\PacPac.application

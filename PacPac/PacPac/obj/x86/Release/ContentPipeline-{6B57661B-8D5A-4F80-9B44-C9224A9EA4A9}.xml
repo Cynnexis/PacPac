@@ -442,6 +442,42 @@
       <Output>C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Release\Content\Fonts\Verdana.xnb</Output>
       <Time>2018-01-08T19:46:08.1890745+01:00</Time>
     </Item>
+    <Item>
+      <Source>Images\play.png</Source>
+      <Name>Images\play</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Release\Content\Images\play.xnb</Output>
+      <Time>2018-01-28T10:27:53.1724798+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\exit.png</Source>
+      <Name>Images\exit</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Release\Content\Images\exit.xnb</Output>
+      <Time>2018-01-28T10:28:14.4531902+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\Arcade.spritefont</Source>
+      <Name>Fonts\Arcade</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Release\Content\Fonts\Arcade.xnb</Output>
+      <Time>2018-02-09T12:07:01.1018952+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\Crackman.spritefont</Source>
+      <Name>Fonts\Crackman</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Release\Content\Fonts\Crackman.xnb</Output>
+      <Time>2018-02-09T12:00:23.8769184+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{6B57661B-8D5A-4F80-9B44-C9224A9EA4A9}</ContentProjectGUID>

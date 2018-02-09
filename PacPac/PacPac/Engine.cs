@@ -21,7 +21,6 @@ namespace PacPac
 	{
 		private GraphicsDeviceManager graphics;
 		private SpriteBatch spriteBatch;
-		private SpriteFont sf_font;
 
 		private GameState state;
 		private GameTime gameTime;
@@ -127,6 +126,7 @@ namespace PacPac
 		protected override void Initialize()
 		{
 			SoundManager.Instance.LoadContent(this);
+			FontManager.Instance.LoadContent(this);
 
 			State = GameState.StartMenu;
 
@@ -153,8 +153,6 @@ namespace PacPac
 			graphics.PreferredBackBufferWidth = 1024;
 			graphics.PreferredBackBufferHeight = 620;
 			graphics.ApplyChanges();
-
-			sf_font = this.Content.Load<SpriteFont>(@"Fonts\Verdana");
 		}
 
 		/// <summary>
@@ -221,12 +219,12 @@ namespace PacPac
 				case GameState.Stop:
 					break;
 				default: // Playing & Pause
-					spriteBatch.DrawString(sf_font,
+					spriteBatch.DrawString(FontManager.Instance.Crackman,
 						"PacPac",
 						new Vector2(maze.Dimension.Max.X + 10, 20),
 						Color.White);
 
-					spriteBatch.DrawString(sf_font,
+					spriteBatch.DrawString(FontManager.Instance.Arcade,
 						"Life: ",
 						new Vector2(maze.Dimension.Max.X + 10, 50),
 						Color.White);
@@ -235,22 +233,22 @@ namespace PacPac
 					for (int i = 0; i < pac.Life; i++)
 						spriteBatch.Draw(tx_pac, new Vector2(maze.Dimension.Max.X + 10 + i * Maze.SPRITE_DIMENSION, 80), Color.White);
 
-					spriteBatch.DrawString(sf_font,
+					spriteBatch.DrawString(FontManager.Instance.Arcade,
 						"Score: " + Score,
 						new Vector2(maze.Dimension.Max.X + 10, 110),
 						Color.White);
 
-					spriteBatch.DrawString(sf_font,
+					spriteBatch.DrawString(FontManager.Instance.Arcade,
 						"Level " + Level,
 						new Vector2(maze.Dimension.Max.X + 10, 140),
 						Color.White);
 
 #if DEBUG
-					spriteBatch.DrawString(sf_font,
+					spriteBatch.DrawString(FontManager.Instance.Arcade,
 						"Pac : (" + pac.Position.X + " ; " + pac.Position.Y + ")",
 						new Vector2(maze.Dimension.Max.X + 10, 500),
 						Color.White);
-					spriteBatch.DrawString(sf_font,
+					spriteBatch.DrawString(FontManager.Instance.Arcade,
 						"       [" + pac.ConvertPositionToTileIndexes().X + ",  " + pac.ConvertPositionToTileIndexes().Y + "]",
 						new Vector2(maze.Dimension.Max.X + 10, 530),
 						Color.White);
@@ -270,7 +268,7 @@ namespace PacPac
 // TODO: Enhance Menu screen
 
 /* COMMIT:
- * Level system implemented
- * SoundManager bug fixed
- * Bug that free all ghosts from the startup point when a fruit is eaten by pac is now fixed
+ * Font bug fixed
+ * AbstractSingleton added
+ * FontManager added
 */

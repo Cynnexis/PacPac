@@ -460,6 +460,24 @@
       <Output>C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Debug\Content\Musics\Siren.xnb</Output>
       <Time>2018-01-08T18:07:44.9767504+01:00</Time>
     </Item>
+    <Item>
+      <Source>Fonts\arcade.spritefont</Source>
+      <Name>Fonts\arcade</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Debug\Content\Fonts\arcade.xnb</Output>
+      <Time>2018-02-09T12:07:01.1018952+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\Crackman.spritefont</Source>
+      <Name>Fonts\Crackman</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Debug\Content\Fonts\Crackman.xnb</Output>
+      <Time>2018-02-09T12:00:23.8769184+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{6B57661B-8D5A-4F80-9B44-C9224A9EA4A9}</ContentProjectGUID>

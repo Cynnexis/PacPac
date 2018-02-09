@@ -10,7 +10,7 @@ namespace PacPac.Core.Characters.GhostCharacters
 	/// <summary>
 	/// Manage the ghosts of the maze by giving them directives such as "Get out of the ghost startup point", "You are now edible", and so on...
 	/// </summary>
-	public class GhostManager
+	public class GhostManager : AbstractSingleton
 	{
 		private static GhostManager instance = new GhostManager();
 
@@ -24,7 +24,6 @@ namespace PacPac.Core.Characters.GhostCharacters
 		private Maze maze;
 		private Pac pac;
 		private Vector2 entrance;
-		private bool isInitialized;
 		
 		public static GhostManager Instance
 		{
@@ -59,13 +58,8 @@ namespace PacPac.Core.Characters.GhostCharacters
 			get { return entrance; }
 			set { entrance = value; }
 		}
-		public bool IsInitialized
-		{
-			get { return isInitialized; }
-			set { isInitialized = value; }
-		}
 
-		private GhostManager()
+		private GhostManager() : base()
 		{
 			PlayBeginning = -1;
 			Ghosts = new List<Ghost>(4);
