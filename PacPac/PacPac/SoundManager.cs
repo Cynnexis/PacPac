@@ -13,6 +13,7 @@ namespace PacPac
 		private static SoundManager instance = new SoundManager();
 
 		private SoundEffect se_music;
+		private SoundEffect se_menuMusic; // Music found on http://incompetech.com/music/royalty-free/
 		private SoundEffect se_monsterEaten;
 		private SoundEffect se_pacEaten;
 		private SoundEffect se_pacEatPacdot0;
@@ -20,6 +21,7 @@ namespace PacPac
 		private SoundEffect se_invincible;
 
 		private SoundEffectInstance sei_music;
+		private SoundEffectInstance sei_menuMusic;
 		private SoundEffectInstance sei_invincible;
 		private bool toggle;
 
@@ -36,6 +38,7 @@ namespace PacPac
 		public void LoadContent(Game game)
 		{
 			se_music = game.Content.Load<SoundEffect>(@"Musics\Siren");
+			se_menuMusic = game.Content.Load<SoundEffect>(@"Musics\PinballSpring");
 			se_monsterEaten = game.Content.Load<SoundEffect>(@"Sounds\MonsterEaten");
 			se_pacEaten = game.Content.Load<SoundEffect>(@"Sounds\PacmanEaten");
 			se_pacEatPacdot0 = game.Content.Load<SoundEffect>(@"Sounds\PacmanEatPacdot0");
@@ -69,6 +72,32 @@ namespace PacPac
 		{
 			if (IsInitialized && sei_music != null)
 				sei_music.Stop();
+		}
+
+		public void PlayMenuMusic()
+		{
+			if (IsInitialized)
+			{
+				if (sei_menuMusic != null)
+					sei_menuMusic.Resume();
+				else
+				{
+					sei_menuMusic = se_menuMusic.CreateInstance();
+					sei_menuMusic = ProcessAndPlayMusic(sei_menuMusic);
+				}
+			}
+		}
+
+		public void PauseMenuMusic()
+		{
+			if (IsInitialized && sei_music != null)
+				sei_menuMusic.Pause();
+		}
+
+		public void StopMenuMusic()
+		{
+			if (IsInitialized && sei_menuMusic != null)
+				sei_menuMusic.Stop();
 		}
 
 		public void PlayMonsterEaten()

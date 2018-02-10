@@ -264,9 +264,9 @@ namespace PacPac
 }
 
 // TODO: Replace Pac.Ghosts by GhostManager.Ghosts
-// TODO: Remove PacRepresentation - It's useless
 // TODO: Enhance Menu screen
+// TODO: 
 
 /* COMMIT:
- * PacRepresentation updated: It not longer a singleton, it can be instancied through Pac
+ * Music in menu screen added
 */

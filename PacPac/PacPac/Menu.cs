@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-
+using PacPac.Core;
 
 namespace PacPac
 {
@@ -83,6 +83,8 @@ namespace PacPac
 			// TODO: Add your update code here
 			if (GetState() == GameState.StartMenu)
 			{
+				SoundManager.Instance.PlayMenuMusic();
+
 				playPos = new Vector2((Game.GraphicsDevice.Viewport.Width - tx_play.Width) / 2, (Game.GraphicsDevice.Viewport.Height - tx_play.Height) / 2);
 				exitPos = new Vector2(
 						(Game.GraphicsDevice.Viewport.Width - tx_exit.Width) / 2,
@@ -97,13 +99,15 @@ namespace PacPac
 					{
 						// TODO: Start the game
 						Console.WriteLine("Play!");
-						((Engine) Game).State = GameState.Playing;
+						((Engine)Game).State = GameState.Playing;
 					}
 					else if (mouse.X >= exitPos.X && mouse.X <= exitPos.X + tx_exit.Width &&
 							mouse.Y >= exitPos.Y && mouse.Y <= exitPos.Y + tx_exit.Height)
 						Environment.Exit(0);
 				}
 			}
+			else
+				SoundManager.Instance.StopMenuMusic();
 
 			base.Update(gameTime);
 		}
@@ -113,10 +117,20 @@ namespace PacPac
 			if (GetState() == GameState.StartMenu)
 			{
 				sprite.Begin();
-				sprite.DrawString(FontManager.Instance.Arcade,
-					Type == MenuType.START ? "Start" : "Game Over",
+				if (Type == MenuType.START)
+				{
+					sprite.DrawString(FontManager.Instance.Crackman,
+					"PacPac",
 					new Vector2((Game.GraphicsDevice.Viewport.Width / 2) - 20, Game.GraphicsDevice.Viewport.Height / 6),
 					Color.White);
+				}
+				else if (Type == MenuType.GAMEOVER)
+				{
+					sprite.DrawString(FontManager.Instance.Crackman,
+					"Game Over",
+					new Vector2((Game.GraphicsDevice.Viewport.Width / 2) - 50, Game.GraphicsDevice.Viewport.Height / 6),
+					Color.White);
+				}
 				sprite.Draw(tx_play, playPos, Color.White);
 				sprite.Draw(tx_exit,
 					exitPos,
