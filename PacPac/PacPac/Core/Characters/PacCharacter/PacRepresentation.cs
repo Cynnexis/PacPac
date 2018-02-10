@@ -120,14 +120,14 @@ namespace PacPac.Core
 		}
 
 		// Instance of PacRepresentation
-		private static PacRepresentation instance = new PacRepresentation();
+		/*private static PacRepresentation instance = new PacRepresentation();
 
 		public static PacRepresentation Instance
 		{
 			get { return instance; }
-		}
+		}*/
 
-		private PacRepresentation()
+		public PacRepresentation()
 		{
 			LookingTo = Direction.RIGHT;
 			Month = MouthState.CLOSE;

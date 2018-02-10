@@ -229,7 +229,7 @@ namespace PacPac
 						new Vector2(maze.Dimension.Max.X + 10, 50),
 						Color.White);
 
-					Texture2D tx_pac = PacRepresentation.Instance.CurrentTexture != null ? PacRepresentation.Instance.CurrentTexture : pac.Texture;
+					Texture2D tx_pac = pac.Representation.CurrentTexture != null ? pac.Representation.CurrentTexture : pac.Texture;
 					for (int i = 0; i < pac.Life; i++)
 						spriteBatch.Draw(tx_pac, new Vector2(maze.Dimension.Max.X + 10 + i * Maze.SPRITE_DIMENSION, 80), Color.White);
 
@@ -268,7 +268,5 @@ namespace PacPac
 // TODO: Enhance Menu screen
 
 /* COMMIT:
- * Font bug fixed
- * AbstractSingleton added
- * FontManager added
+ * PacRepresentation updated: It not longer a singleton, it can be instancied through Pac
 */

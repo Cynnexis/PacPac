@@ -65,7 +65,7 @@ namespace PacPac.Core.Characters.GhostCharacters
 				int height = GhostManager.Instance.Map.Height;
 				int mini, maxi;
 				int minj, maxj;
-				switch (PacRepresentation.Instance.LookingTo)
+				switch (GhostManager.Instance.Pac.Representation.LookingTo)
 				{
 					case Direction.UP:
 						mini = (int) pac.X - 5;

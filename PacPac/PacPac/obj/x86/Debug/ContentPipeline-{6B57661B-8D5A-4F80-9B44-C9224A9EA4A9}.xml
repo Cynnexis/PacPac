@@ -398,6 +398,15 @@
       <Time>2018-01-28T10:28:14.4531902+01:00</Time>
     </Item>
     <Item>
+      <Source>Musics\Siren.wav</Source>
+      <Name>Musics\Siren</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Debug\Content\Musics\Siren.xnb</Output>
+      <Time>2018-01-08T18:07:44.9767504+01:00</Time>
+    </Item>
+    <Item>
       <Source>Sounds\Invincible.wav</Source>
       <Name>Sounds\Invincible</Name>
       <Importer>WavImporter</Importer>
@@ -452,21 +461,12 @@
       <Time>2018-01-08T19:46:08.1890745+01:00</Time>
     </Item>
     <Item>
-      <Source>Musics\Siren.wav</Source>
-      <Name>Musics\Siren</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Debug\Content\Musics\Siren.xnb</Output>
-      <Time>2018-01-08T18:07:44.9767504+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\arcade.spritefont</Source>
-      <Name>Fonts\arcade</Name>
+      <Source>Fonts\Arcade.spritefont</Source>
+      <Name>Fonts\Arcade</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Debug\Content\Fonts\arcade.xnb</Output>
+      <Output>C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Debug\Content\Fonts\Arcade.xnb</Output>
       <Time>2018-02-09T12:07:01.1018952+01:00</Time>
     </Item>
     <Item>

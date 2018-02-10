@@ -42,14 +42,14 @@ Content\Images\empty_white.xnb
 Content\Images\transparent.xnb
 Content\Images\play.xnb
 Content\Images\exit.xnb
+Content\Musics\Siren.xnb
 Content\Sounds\Invincible.xnb
 Content\Sounds\MonsterEaten.xnb
 Content\Sounds\PacmanEaten.xnb
 Content\Sounds\PacmanEatPacdot0.xnb
 Content\Sounds\PacmanEatPacdot1.xnb
 Content\Fonts\Verdana.xnb
-Content\Musics\Siren.xnb
-Content\Fonts\arcade.xnb
+Content\Fonts\Arcade.xnb
 Content\Fonts\Crackman.xnb
 Content\Fonts\Arcade.spritefont
 Content\Fonts\arcadeclassic.ttf

@@ -26,12 +26,19 @@ namespace PacPac.Core
 		#endregion
 
 		#region Variables & Properties
+		private PacRepresentation representation;
 		private Maze maze;
 		private int life;
 		private bool invincible;
 		private List<Ghost> ghosts;
 
 		private Timer timer = null;
+
+		public PacRepresentation Representation
+		{
+			get { return representation; }
+			set { representation = value; }
+		}
 
 		public int Life
 		{
@@ -88,7 +95,7 @@ namespace PacPac.Core
 		#region Constructor
 		public Pac(Game game, Maze maze) : base(game)
 		{
-			// TODO: Construct any child components here
+			Representation = new PacRepresentation();
 			this.maze = maze;
 
 			Life = DEFAULT_LIFE;
@@ -136,15 +143,15 @@ namespace PacPac.Core
 		#region LivingGear Override
 		public override void Die()
 		{
-			PacRepresentation.Instance.IsDying = true;
-			PacRepresentation.Instance.OnDieStateChangedAction = (bool isDying) =>
+			Representation.IsDying = true;
+			Representation.OnDieStateChangedAction = (bool isDying) =>
 			{
 				if (!isDying)
 				{
 					Position = StartingPoint;
 					SoundManager.Instance.PlayMusic();
 					Life -= 1;
-					PacRepresentation.Instance.OnDieStateChangedAction = (bool isDying1) => { };
+					Representation.OnDieStateChangedAction = (bool isDying1) => { };
 				}
 			};
 			SoundManager.Instance.PauseMusic();
@@ -167,8 +174,8 @@ namespace PacPac.Core
 
 		protected override void LoadContent()
 		{
-			PacRepresentation.Instance.LoadContent(Game);
-			PacRepresentation.Instance.OnTextureChangedAction = (Texture2D texture) => { Texture = texture; };
+			Representation.LoadContent(Game);
+			Representation.OnTextureChangedAction = (Texture2D texture) => { Texture = texture; };
 
 			base.LoadContent();
 		}
@@ -183,10 +190,10 @@ namespace PacPac.Core
 
 			if (State == GameState.Playing)
 			{
-				PacRepresentation.Instance.Update(gameTime);
+				Representation.Update(gameTime);
 
 				// If pac is not dying
-				if (!PacRepresentation.Instance.IsDying)
+				if (!Representation.IsDying)
 				{
 					// Updating Position according to the Controls
 					Vector2 oldPos = Position;
@@ -194,22 +201,22 @@ namespace PacPac.Core
 					if (Controls.CheckKeyState(Controls.PAC_UP))
 					{
 						Position = new Vector2(Position.X, Position.Y - Speed.Y);
-						PacRepresentation.Instance.LookingTo = Direction.UP;
+						Representation.LookingTo = Direction.UP;
 					}
 					else if (Controls.CheckKeyState(Controls.PAC_LEFT))
 					{
 						Position = new Vector2(Position.X - Speed.X, Position.Y);
-						PacRepresentation.Instance.LookingTo = Direction.LEFT;
+						Representation.LookingTo = Direction.LEFT;
 					}
 					else if (Controls.CheckKeyState(Controls.PAC_DOWN))
 					{
 						Position = new Vector2(Position.X, Position.Y + Speed.Y);
-						PacRepresentation.Instance.LookingTo = Direction.DOWN;
+						Representation.LookingTo = Direction.DOWN;
 					}
 					else if (Controls.CheckKeyState(Controls.PAC_RIGHT))
 					{
 						Position = new Vector2(Position.X + Speed.X, Position.Y);
-						PacRepresentation.Instance.LookingTo = Direction.RIGHT;
+						Representation.LookingTo = Direction.RIGHT;
 					}
 
 					// Check if the move is valid
@@ -219,7 +226,7 @@ namespace PacPac.Core
 					bool exceptionReached = false;
 					try
 					{
-						switch (PacRepresentation.Instance.LookingTo)
+						switch (Representation.LookingTo)
 						{
 							case Direction.UP:
 								cellToward = maze[(int)tile.X, (int)tile.Y - 1];
@@ -301,8 +308,8 @@ namespace PacPac.Core
 			{
 				if (Texture == null)
 				{
-					PacRepresentation.Instance.RefreshTexture();
-					Texture = PacRepresentation.Instance.CurrentTexture;
+					Representation.RefreshTexture();
+					Texture = Representation.CurrentTexture;
 				}
 
 				Sprite.Begin();
