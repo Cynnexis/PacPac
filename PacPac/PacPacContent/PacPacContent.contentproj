@@ -324,6 +324,11 @@
       <Name>crackman</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Compile Include="Fonts\CrackmanTitle.spritefont">
+      <Name>CrackmanTitle</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Musics\PinballSpring.mp3">

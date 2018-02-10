@@ -30,7 +30,6 @@ namespace PacPac.Core
 		private Maze maze;
 		private int life;
 		private bool invincible;
-		private List<Ghost> ghosts;
 
 		private Timer timer = null;
 
@@ -55,9 +54,10 @@ namespace PacPac.Core
 
 				if (State == GameState.Playing)
 				{
-					foreach (Ghost g in Ghosts)
-						if (g.State != GhostState.INITIALIZING && g.State != GhostState.MOVING_MAZE)
-							g.State = invincible ? GhostState.EDIBLE : GhostState.RUNNING;
+					if (GhostManager.Instance.IsInitialized)
+						foreach (Ghost g in GhostManager.Instance.Ghosts)
+							if (g.State != GhostState.INITIALIZING && g.State != GhostState.MOVING_MAZE)
+								g.State = invincible ? GhostState.EDIBLE : GhostState.RUNNING;
 
 					if (invincible)
 					{
@@ -84,12 +84,6 @@ namespace PacPac.Core
 				}
 			}
 		}
-
-		public List<Ghost> Ghosts
-		{
-			get { return ghosts; }
-			set { ghosts = value; }
-		}
 		#endregion
 
 		#region Constructor
@@ -99,7 +93,6 @@ namespace PacPac.Core
 			this.maze = maze;
 
 			Life = DEFAULT_LIFE;
-			Ghosts = new List<Ghost>(4);
 
 			// Seach for the startup tile
 			List<Cell> startupCells = maze.SearchTile(TileType.PAC_STARTUP);
@@ -262,8 +255,8 @@ namespace PacPac.Core
 						Position = oldPos;
 
 					Ghost ghostDetected = null;
-					if (Ghosts != null)
-						foreach (Ghost g in Ghosts)
+					if (GhostManager.Instance.IsInitialized && GhostManager.Instance.Ghosts != null)
+						foreach (Ghost g in GhostManager.Instance.Ghosts)
 							if (ConvertPositionToTileIndexes().Equals(g.ConvertPositionToTileIndexes()))
 								ghostDetected = g;
 
@@ -275,7 +268,18 @@ namespace PacPac.Core
 							ghostDetected.Die();
 						// Otherwise, pac loses a life
 						else if (ghostDetected.State != GhostState.EATEN)
+						{
 							Die();
+
+							// Try to add +100 (score)
+#pragma warning disable CS0168 // La variable est déclarée mais jamais utilisée
+							try
+							{
+								((Engine) Game).Score += 100;
+							}
+							catch (InvalidCastException ignored) { }
+#pragma warning restore CS0168 // La variable est déclarée mais jamais utilisée
+						}
 					}
 
 					// Check if pac runs into a pacdot

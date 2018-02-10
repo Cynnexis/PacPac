@@ -14,6 +14,7 @@ namespace PacPac
 		private SpriteFont sf_verdana;
 		private SpriteFont sf_arcade;
 		private SpriteFont sf_crackman;
+		private SpriteFont sf_crackmanTitle;
 
 		public static FontManager Instance
 		{
@@ -39,6 +40,12 @@ namespace PacPac
 			private set { sf_crackman = value; }
 		}
 
+		public SpriteFont CrackmanTitle
+		{
+			get { return sf_crackmanTitle; }
+			private set { sf_crackmanTitle = value; }
+		}
+
 		private FontManager() : base() { }
 
 		public void LoadContent(Game game)
@@ -49,6 +56,7 @@ namespace PacPac
 			Verdana = game.Content.Load<SpriteFont>(@"Fonts\Verdana");
 			Arcade = game.Content.Load<SpriteFont>(@"Fonts\Arcade");
 			Crackman = game.Content.Load<SpriteFont>(@"Fonts\Crackman");
+			CrackmanTitle = game.Content.Load<SpriteFont>(@"Fonts\CrackmanTitle");
 
 			IsInitialized = true;
 		}

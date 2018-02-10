@@ -98,11 +98,6 @@ namespace PacPac
 
 			pac = new Pac(this, maze);
 
-			pac.Ghosts.Add(blinky);
-			pac.Ghosts.Add(pinky);
-			pac.Ghosts.Add(inky);
-			pac.Ghosts.Add(clyde);
-
 			GhostManager.Instance.Initialize(maze, pac, blinky, new Ghost[] { pinky, inky, clyde });
 
 			menu.Initialize();
@@ -161,7 +156,6 @@ namespace PacPac
 		/// </summary>
 		protected override void UnloadContent()
 		{
-			// TODO: Unload any non ContentManager content here
 			base.UnloadContent();
 		}
 
@@ -263,10 +257,10 @@ namespace PacPac
 	}
 }
 
-// TODO: Replace Pac.Ghosts by GhostManager.Ghosts
-// TODO: Enhance Menu screen
-// TODO: 
+// TODO: Save pacpac's life between each level
+// TODO: Display bonus score
 
 /* COMMIT:
- * Music in menu screen added
+ * Pac.Ghosts replaced by GhostManager.Ghosts (memory optimization)
+ * Enhance the menu screen (a bit)
 */

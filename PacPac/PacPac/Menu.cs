@@ -119,16 +119,16 @@ namespace PacPac
 				sprite.Begin();
 				if (Type == MenuType.START)
 				{
-					sprite.DrawString(FontManager.Instance.Crackman,
+					sprite.DrawString(FontManager.Instance.CrackmanTitle,
 					"PacPac",
-					new Vector2((Game.GraphicsDevice.Viewport.Width / 2) - 20, Game.GraphicsDevice.Viewport.Height / 6),
+					new Vector2((Game.GraphicsDevice.Viewport.Width / 2) - 130, Game.GraphicsDevice.Viewport.Height / 6),
 					Color.White);
 				}
 				else if (Type == MenuType.GAMEOVER)
 				{
-					sprite.DrawString(FontManager.Instance.Crackman,
+					sprite.DrawString(FontManager.Instance.CrackmanTitle,
 					"Game Over",
-					new Vector2((Game.GraphicsDevice.Viewport.Width / 2) - 50, Game.GraphicsDevice.Viewport.Height / 6),
+					new Vector2((Game.GraphicsDevice.Viewport.Width / 2) - 200, Game.GraphicsDevice.Viewport.Height / 6),
 					Color.White);
 				}
 				sprite.Draw(tx_play, playPos, Color.White);
