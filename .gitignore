@@ -37,13 +37,13 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # User-specific files
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
+#*.suo
+#*.user
+#*.userosscache
+#*.sln.docstates
 
 # User-specific files (MonoDevelop/Xamarin Studio)
-*.userprefs
+#*.userprefs
 
 # Build results
 [Dd]ebug/
@@ -90,32 +90,6 @@ artifacts/
 # StyleCop
 StyleCopReport.xml
 
-# Files built by Visual Studio
-*_i.c
-*_p.c
-*_i.h
-*.ilk
-*.meta
-*.obj
-*.pch
-*.pdb
-*.pgc
-*.pgd
-*.rsp
-*.sbr
-*.tlb
-*.tli
-*.tlh
-*.tmp
-*.tmp_proj
-*.log
-*.vspscc
-*.vssscc
-.builds
-*.pidb
-*.svclog
-*.scc
-
 # Chutzpah Test files
 _Chutzpah*
 
@@ -131,10 +105,10 @@ ipch/
 *.VC.VC.opendb
 
 # Visual Studio profiler
-*.psess
-*.vsp
-*.vspx
-*.sap
+#*.psess
+#*.vsp
+#*.vspx
+#*.sap
 
 # Visual Studio Trace Files
 *.e2e
@@ -320,7 +294,7 @@ paket-files/
 
 # JetBrains Rider
 .idea/
-*.sln.iml
+#*.sln.iml
 
 # CodeRush
 .cr/
