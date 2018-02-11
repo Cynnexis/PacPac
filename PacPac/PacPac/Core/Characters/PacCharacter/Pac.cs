@@ -141,7 +141,35 @@ namespace PacPac.Core
 			{
 				if (!isDying)
 				{
-					Position = StartingPoint;
+					// Test if a ghost is in the starting point
+					if (GhostManager.Instance.IsInitialized)
+					{
+						bool isDeadly = false;
+						for (int i = 0; i < GhostManager.Instance.Ghosts.Count && !isDeadly; i++)
+							isDeadly = GhostManager.Instance.Ghosts[i].ConvertPositionToTileIndexes().Equals(ConvertPositionToTileIndexes(StartingPoint));
+
+						// If there is no ghost, then place pac there
+						if (!isDeadly)
+							Position = StartingPoint;
+						// Otherwise, the program must found another place
+						else
+						{
+							List<Cell> available = maze.SearchTile(TileType.PACDOT);
+
+							if (available == null)
+								available = new List<Cell>();
+
+							if (available.Count <= 0)
+								available.AddRange(maze.SearchTile(TileType.EMPTY));
+
+							Random r = new Random();
+							Vector3 res = available[r.Next(available.Count)].Dimension.Min;
+							Position = new Vector2(res.X, res.Y);
+						}
+					}
+					else
+						Position = StartingPoint;
+
 					SoundManager.Instance.PlayMusic();
 					Life -= 1;
 					Representation.OnDieStateChangedAction = (bool isDying1) => { };
@@ -265,21 +293,21 @@ namespace PacPac.Core
 					{
 						// If the ghost is edible (pac is in invincible mode), the ghost dies and must returns to the ghost start area
 						if (ghostDetected.State == GhostState.EDIBLE)
-							ghostDetected.Die();
-						// Otherwise, pac loses a life
-						else if (ghostDetected.State != GhostState.EATEN)
 						{
-							Die();
-
+							ghostDetected.Die();
+							
 							// Try to add +100 (score)
-#pragma warning disable CS0168 // La variable est déclarée mais jamais utilisée
+#pragma warning disable CS0168
 							try
 							{
 								((Engine) Game).Score += 100;
 							}
 							catch (InvalidCastException ignored) { }
-#pragma warning restore CS0168 // La variable est déclarée mais jamais utilisée
+#pragma warning restore CS0168
 						}
+						// Otherwise, pac loses a life
+						else if (ghostDetected.State != GhostState.EATEN)
+							Die();
 					}
 
 					// Check if pac runs into a pacdot
@@ -295,7 +323,6 @@ namespace PacPac.Core
 						maze[(int)tile.X, (int)tile.Y].Tile = TileType.EMPTY;
 						((Engine)Game).Score += 50;
 						Invincible = true;
-						//SoundManager.Instance.PlayInvincible();
 					}
 					// Check if pac runs into a teleporter
 					else if (maze[(int)tile.X, (int)tile.Y].Tile == TileType.TELEPORTER)

@@ -21,8 +21,26 @@ namespace PacPac
 
 		private MenuType type;
 
+		private Texture2D tx_pac;
+		private Texture2D tx_blinky;
+		private Texture2D tx_pinky;
+		private Texture2D tx_inky;
+		private Texture2D tx_clyde;
+
 		private Texture2D tx_play;
 		private Texture2D tx_exit;
+
+		// Dynamic Background attributes
+
+		/// <summary>
+		/// Rate of blue (from 0 to 1) for the background
+		/// </summary>
+		private float blue;
+
+		/// <summary>
+		/// Is the background going from black to blue (true) or from blue to black (false)?
+		/// </summary>
+		private bool raising;
 
 		private Vector2 playPos;
 		private Vector2 exitPos;
@@ -69,8 +87,19 @@ namespace PacPac
 
 		protected override void LoadContent()
 		{
+			tx_pac = Game.Content.Load<Texture2D>(@"Images\pacman_lc");
+			tx_blinky = Game.Content.Load<Texture2D>(@"Images\ghost_blinky");
+			tx_pinky = Game.Content.Load<Texture2D>(@"Images\ghost_pinky");
+			tx_inky = Game.Content.Load<Texture2D>(@"Images\ghost_inky");
+			tx_clyde = Game.Content.Load<Texture2D>(@"Images\ghost_clyde");
+
 			tx_play = Game.Content.Load<Texture2D>(@"Images\play");
 			tx_exit = Game.Content.Load<Texture2D>(@"Images\exit");
+
+			// Setting default value for the dynamic background
+			blue = 0.2f;
+			raising = true;
+
 			base.LoadContent();
 		}
 
@@ -88,7 +117,7 @@ namespace PacPac
 				playPos = new Vector2((Game.GraphicsDevice.Viewport.Width - tx_play.Width) / 2, (Game.GraphicsDevice.Viewport.Height - tx_play.Height) / 2);
 				exitPos = new Vector2(
 						(Game.GraphicsDevice.Viewport.Width - tx_exit.Width) / 2,
-						((Game.GraphicsDevice.Viewport.Height - tx_exit.Height) / 2) + 200);
+						((Game.GraphicsDevice.Viewport.Height - tx_exit.Height) / 2) + 100);
 
 				MouseState mouse = Mouse.GetState();
 
@@ -116,7 +145,30 @@ namespace PacPac
 		{
 			if (GetState() == GameState.StartMenu)
 			{
+				// Draw the background with the attribute 'blue'
+				GraphicsDevice.Clear(new Color(0f, 0f, blue));
+
+				// Update 'blue'. Every 100 miliseconds, add or remove 0.01 from 'blue', depending on the value of 'raising'
+				if (Math.Round(gameTime.TotalGameTime.TotalMilliseconds) % 100 == 0)
+				{
+					// If the menu is going from dark to blue (raising == true) then add 0.01
+					if (raising)
+						blue += 0.01f;
+					// Otherwise remove 0.01 from 'blue'
+					else
+						blue -= 0.01f;
+
+					// If the variable 'blue' reaches its limit ]0.2 ; 0.8[, then invert the variable 'raising'
+					if (blue >= 0.8f)
+						raising = false;
+					else if (blue <= 0.2f)
+						raising = true;
+				}
+
+				// Drawn sprites
 				sprite.Begin();
+
+				// Draw the tile
 				if (Type == MenuType.START)
 				{
 					sprite.DrawString(FontManager.Instance.CrackmanTitle,
@@ -131,10 +183,22 @@ namespace PacPac
 					new Vector2((Game.GraphicsDevice.Viewport.Width / 2) - 200, Game.GraphicsDevice.Viewport.Height / 6),
 					Color.White);
 				}
+
+				// Draw pacpac
+				sprite.Draw(tx_pac, new Vector2((Game.GraphicsDevice.Viewport.Width - tx_pac.Width) / 2, 200), Color.White);
+
+				// Draw the ghosts
+				sprite.Draw(tx_blinky, new Vector2(((Game.GraphicsDevice.Viewport.Width - tx_blinky.Width) / 2) + 40, 200), Color.White);
+				sprite.Draw(tx_pinky, new Vector2(((Game.GraphicsDevice.Viewport.Width - tx_pinky.Width) / 2) + 65, 200), Color.White);
+				sprite.Draw(tx_inky, new Vector2(((Game.GraphicsDevice.Viewport.Width - tx_inky.Width) / 2) + 90, 200), Color.White);
+				sprite.Draw(tx_clyde, new Vector2(((Game.GraphicsDevice.Viewport.Width - tx_clyde.Width) / 2) + 115, 200), Color.White);
+
+				// Draw buttons
 				sprite.Draw(tx_play, playPos, Color.White);
 				sprite.Draw(tx_exit,
 					exitPos,
 					Color.White);
+
 				sprite.End();
 			}
 

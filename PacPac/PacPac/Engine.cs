@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using PacPac.Grid;
 using PacPac.Core;
 using PacPac.Core.Characters.GhostCharacters;
+using System.Threading;
 
 namespace PacPac
 {
@@ -32,8 +33,11 @@ namespace PacPac
 		private Inky inky;
 		private Clyde clyde;
 		private Pac pac;
+		private int lastPacLife;
 
 		private int score;
+		private int bonus; // The point the 'score'	attribute just obtained
+		private Timer t_bonus;
 		private int level;
 
 		/// <summary>
@@ -62,9 +66,34 @@ namespace PacPac
 			get { return score; }
 			set
 			{
+				int oldValue = score;
 				score = value;
 				if (score != 0 && score % 5000 == 0)
 					pac.Life++;
+
+				Bonus = score - oldValue;
+			}
+		}
+
+		public int Bonus
+		{
+			get { return bonus; }
+			protected set
+			{
+				bonus = value;
+
+				// The bonus is available only for 3s. After that, it is equal to 0 again
+				if (t_bonus == null)
+				{
+					t_bonus = new Timer((Object o) =>
+					{
+						bonus = 0;
+						t_bonus.Dispose();
+						t_bonus = null;
+					}, null, 1000, Timeout.Infinite);
+				}
+				else
+					t_bonus.Change(1000, Timeout.Infinite);
 			}
 		}
 
@@ -79,6 +108,7 @@ namespace PacPac
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
 
+			lastPacLife = -1;
 			pacDied = false;
 		}
 
@@ -97,6 +127,9 @@ namespace PacPac
 			clyde = new Clyde(this);
 
 			pac = new Pac(this, maze);
+
+			if (lastPacLife > 0)
+				pac.Life = lastPacLife;
 
 			GhostManager.Instance.Initialize(maze, pac, blinky, new Ghost[] { pinky, inky, clyde });
 
@@ -179,6 +212,7 @@ namespace PacPac
 				if (maze.SearchTile(TileType.PACDOT).Count == 0 && maze.SearchTile(TileType.FRUIT).Count == 0)
 				{
 					Level++;
+					lastPacLife = pac.Life;
 					NewGame();
 					SoundManager.Instance.PlayMusic();
 				}
@@ -227,10 +261,18 @@ namespace PacPac
 					for (int i = 0; i < pac.Life; i++)
 						spriteBatch.Draw(tx_pac, new Vector2(maze.Dimension.Max.X + 10 + i * Maze.SPRITE_DIMENSION, 80), Color.White);
 
+					// Drawn score
 					spriteBatch.DrawString(FontManager.Instance.Arcade,
 						"Score: " + Score,
 						new Vector2(maze.Dimension.Max.X + 10, 110),
 						Color.White);
+
+					// Draw bonus
+					if (Bonus != 0)
+						spriteBatch.DrawString(FontManager.Instance.Arcade,
+							(Bonus > 0 ? "+" : "") + Bonus,
+							new Vector2(maze.Dimension.Max.X + 150, 110),
+							Color.Yellow);
 
 					spriteBatch.DrawString(FontManager.Instance.Arcade,
 						"Level " + Level,
@@ -257,10 +299,12 @@ namespace PacPac
 	}
 }
 
-// TODO: Save pacpac's life between each level
-// TODO: Display bonus score
+// TODO: Fix dying sound
+// TODO: Fix lag due to ghosts (choose random spot)
 
 /* COMMIT:
- * Pac.Ghosts replaced by GhostManager.Ghosts (memory optimization)
- * Enhance the menu screen (a bit)
+ * Dynamic background added for menu screen
+ * Pac & ghosts sprites added in menu screen
+ * Bonus system added
+ * The life of pac is saved during the transiton of level
 */

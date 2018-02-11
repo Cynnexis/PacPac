@@ -77,3 +77,4 @@ C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\Pa
 C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\obj\x86\Debug\PacPac.exe
 C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\obj\x86\Debug\PacPac.pdb
 C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Debug\Content\Fonts\CrackmanTitle.xnb
+C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\obj\x86\Debug\PacPac.csprojResolveAssemblyReference.cache
