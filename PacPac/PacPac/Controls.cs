@@ -6,6 +6,9 @@ using System.Text;
 
 namespace PacPac
 {
+	/// <summary>
+	/// Class to describe the control of the game
+	/// </summary>
 	[Serializable]
 	public class Controls
 	{

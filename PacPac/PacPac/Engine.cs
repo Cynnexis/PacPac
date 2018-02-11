@@ -349,10 +349,6 @@ namespace PacPac
 	}
 }
 
-// TODO: Fix dying sound
-// TODO: Fix lag due to ghosts (choose random spot)
-
 /* COMMIT:
- * Collision bug which allowed pacpac to go through the wall to go to ghosts startup point fixed
- * Code half commented
+ * Code commented
 */

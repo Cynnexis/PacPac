@@ -6,6 +6,10 @@ using Microsoft.Xna.Framework;
 
 namespace PacPac.Core
 {
+	/// <summary>
+	/// Abstract class to describe a game component representation
+	/// </summary>
+	/// <seealso cref="PacRepresentation"/>
 	public abstract class ComponentRepresentation : ComponentRepresentationInterface
 	{
 

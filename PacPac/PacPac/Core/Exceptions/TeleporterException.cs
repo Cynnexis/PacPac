@@ -5,6 +5,9 @@ using System.Text;
 
 namespace PacPac.Grid.Exceptions
 {
+	/// <summary>
+	/// Exception thrown when a teleporter is invalid
+	/// </summary>
 	public class TeleporterException : Exception
 	{
 		public TeleporterException() : base() { }

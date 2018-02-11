@@ -5,6 +5,9 @@ using System.Text;
 
 namespace PacPac.Grid.Exceptions
 {
+	/// <summary>
+	/// Exception thrown when the maze dimension does not match an operation
+	/// </summary>
 	public class InvalidMazeDimensionException : Exception
 	{
 		public InvalidMazeDimensionException(int invalidX, int invalidY, int expectedX, int expectedY) :

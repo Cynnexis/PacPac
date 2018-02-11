@@ -14,7 +14,11 @@ namespace PacPac.Core
 	public delegate void OnSizeChanged(Vector2 size);
 	public delegate void OnSpeedChanged(Vector2 speed);
 
-	public abstract class Gear : Microsoft.Xna.Framework.DrawableGameComponent
+	/// <summary>
+	/// Gear is a <see cref="DrawableGameComponent"/> with extra attributes to
+	/// describes an object in the game.
+	/// </summary>
+	public abstract class Gear : DrawableGameComponent
 	{
 		#region Variables & Properties
 		private SpriteBatch sprite = null;
@@ -24,7 +28,14 @@ namespace PacPac.Core
 		private Vector2 size = new Vector2(0);
 		private Vector2 speed = new Vector2(0);
 
+		/// <summary>
+		/// The sprite of the component
+		/// </summary>
 		public SpriteBatch Sprite { get { return sprite; } set { sprite = value; } }
+
+		/// <summary>
+		/// The texture of the component
+		/// </summary>
 		public Texture2D Texture
 		{
 			get { return texture; }
@@ -39,7 +50,16 @@ namespace PacPac.Core
 					OnTextureChangedAction?.Invoke(texture);
 			}
 		}
+
+		/// <summary>
+		/// The dimension of the component
+		/// </summary>
+		/// <seealso cref="Size"/>
 		public BoundingBox Dimension { get { return dimension; } set { dimension = value; } }
+
+		/// <summary>
+		/// The current position of the component
+		/// </summary>
 		public Vector2 Position
 		{
 			get { return position; }
@@ -54,6 +74,11 @@ namespace PacPac.Core
 					OnPositionChangedAction?.Invoke(position);
 			}
 		}
+
+		/// <summary>
+		/// The size of the component
+		/// </summary>
+		/// <seealso cref="Dimension"/>
 		public Vector2 Size
 		{
 			get { return size; }
@@ -68,6 +93,10 @@ namespace PacPac.Core
 					OnSizeChangedAction?.Invoke(size);
 			}
 		}
+
+		/// <summary>
+		/// The speed of the component
+		/// </summary>
 		public Vector2 Speed
 		{
 			get { return speed; }
@@ -80,6 +109,10 @@ namespace PacPac.Core
 					OnSpeedChangedAction?.Invoke(speed);
 			}
 		}
+
+		/// <summary>
+		/// Fetch the current game state
+		/// </summary>
 		public GameState State
 		{
 			get
@@ -107,10 +140,20 @@ namespace PacPac.Core
 		public OnSpeedChanged OnSpeedChangedAction { get; set; }
 		#endregion
 
+		/// <summary>
+		/// Default constructor
+		/// </summary>
+		/// <param name="game">The game instance</param>
 		public Gear(Game game) : base(game) {
 			sprite = new SpriteBatch(game.GraphicsDevice);
 		}
 
+		/// <summary>
+		/// Convert <paramref name="position"/> to tile indexes (for
+		/// <see cref="Maze"/>)
+		/// </summary>
+		/// <param name="position">Position in pixel-base to convert into tile-indexes-base</param>
+		/// <returns>Return <paramref name="position"/> in tile indexes</returns>
 		public Vector2 ConvertPositionToTileIndexes(Vector2 position)
 		{
 			return new Vector2(
@@ -118,17 +161,26 @@ namespace PacPac.Core
 				(float)Math.Round((double) (position.Y / ((float) Maze.SPRITE_DIMENSION)))
 			);
 		}
+		/// <summary>
+		/// Convert the current <see cref="Position"/> of the component to
+		/// tile indexes (for <see cref="Maze"/>)
+		/// </summary>
+		/// <returns>Return the position in tile indexes</returns>
 		public Vector2 ConvertPositionToTileIndexes()
 		{
 			return ConvertPositionToTileIndexes(this.Position);
 		}
 
+		/// <summary>
+		/// Update the dimension of the component according to
+		/// <see cref="Position"/> & <see cref="Size"/>.
+		/// </summary>
 		public void UpdateBoundingBox()
 		{
 			Dimension = new BoundingBox(new Vector3(Position.X, Position.Y, 0),
 				new Vector3(Position.X + Size.Y, Position.Y + Size.Y, 0));
 		}
-
+		
 		public override void Update(GameTime gameTime)
 		{
 			UpdateBoundingBox();

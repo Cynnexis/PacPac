@@ -5,6 +5,9 @@ using System.Text;
 
 namespace PacPac.Grid.Exceptions
 {
+	/// <summary>
+	/// Exception thrown when an invalid bounding box is found
+	/// </summary>
 	public class BoundingBoxException : Exception
 	{
 		public BoundingBoxException() : base() { }

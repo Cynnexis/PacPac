@@ -19,11 +19,15 @@ namespace PacPac.Core
 	/// <seealso cref="Pac"/>
 	public class PacRepresentation : ComponentRepresentation
 	{
+		/// <summary>
+		/// Enumerate the mouth state of pac
+		/// </summary>
 		public enum MouthState
 		{
 			OPEN, CLOSE
 		}
 
+		#region Attributes & Properties
 		private Direction lookingTo;
 		private MouthState month;
 		private bool isDying;
@@ -51,6 +55,14 @@ namespace PacPac.Core
 		private Texture2D tx_current;
 
 
+		/// <summary>
+		/// Indicates in which direction pac is looking to.
+		/// When set, the properties updates the texture and calls
+		/// <see cref="OnLookingToChangedAction"/>
+		/// </summary>
+		/// <seealso cref="OnLookingToChangedAction"/>
+		/// <seealso cref="OnLookingToChanged"/>
+		/// <seealso cref="RefreshTexture"/>
 		public Direction LookingTo
 		{
 			get { return lookingTo; }
@@ -65,6 +77,15 @@ namespace PacPac.Core
 				}
 			}
 		}
+
+		/// <summary>
+		/// Inidicates the mouth state.
+		/// When set, the properties updates the texture and calls
+		/// <see cref="OnLookingToChangedAction"/>
+		/// </summary>
+		/// <seealso cref="OnMouthStateChangedAction"/>
+		/// <seealso cref="OnMouthStateChanged"/>
+		/// <seealso cref="RefreshTexture"/>
 		public MouthState Month
 		{
 			get { return month; }
@@ -80,6 +101,9 @@ namespace PacPac.Core
 			}
 		}
 
+		/// <summary>
+		/// Indicates if the pac is in the dying animation
+		/// </summary>
 		public bool IsDying
 		{
 			get { return isDying; }
@@ -101,6 +125,9 @@ namespace PacPac.Core
 			}
 		}
 
+		/// <summary>
+		/// Tell the current game time
+		/// </summary>
 		public GameTime Current
 		{
 			get { return current; }
@@ -111,6 +138,10 @@ namespace PacPac.Core
 		public OnMouthStateChanged OnMouthStateChangedAction { get; set; }
 		public OnTextureChanged OnTextureChangedAction { get; set; }
 		public OnDieStateChanged OnDieStateChangedAction { get; set; }
+
+		/// <summary>
+		/// Current texture pac should draw
+		/// </summary>
 		public Texture2D CurrentTexture
 		{
 			get { return tx_current; }
@@ -122,15 +153,12 @@ namespace PacPac.Core
 					OnTextureChangedAction?.Invoke(tx_current);
 			}
 		}
+		#endregion
 
-		// Instance of PacRepresentation
-		/*private static PacRepresentation instance = new PacRepresentation();
-
-		public static PacRepresentation Instance
-		{
-			get { return instance; }
-		}*/
-
+		#region Constructor
+		/// <summary>
+		/// Default constructor. Initialize all attributes.
+		/// </summary>
 		public PacRepresentation()
 		{
 			LookingTo = Direction.RIGHT;
@@ -139,7 +167,9 @@ namespace PacPac.Core
 			dieStep = 0;
 			RefreshTexture();
 		}
+		#endregion
 
+		#region ComponentRepresentation Overrides
 		public override void LoadContent(Game game)
 		{
 			tx_pac_rc = game.Content.Load<Texture2D>(@"Images\pacman_rc");
@@ -172,7 +202,11 @@ namespace PacPac.Core
 
 			RefreshTexture();
 		}
+		#endregion
 
+		/// <summary>
+		/// Refresh the texture.
+		/// </summary>
 		public void RefreshTexture()
 		{
 			if (IsDying)

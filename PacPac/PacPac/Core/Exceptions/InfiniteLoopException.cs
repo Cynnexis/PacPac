@@ -5,6 +5,9 @@ using System.Text;
 
 namespace PacPac.Core.Exceptions
 {
+	/// <summary>
+	/// Exception thrown when an Infinite loop is detected
+	/// </summary>
 	public class InfiniteLoopException : Exception
 	{
 		public InfiniteLoopException() : base() { }
