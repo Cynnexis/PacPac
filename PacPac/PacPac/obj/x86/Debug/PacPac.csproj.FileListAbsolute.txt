@@ -53,10 +53,15 @@ C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\Pa
 C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Debug\Content\Fonts\Verdana.xnb
 C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Debug\Content\Fonts\Arcade.xnb
 C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Debug\Content\Fonts\Crackman.xnb
+C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Debug\Content\Fonts\CrackmanTitle.xnb
 C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Debug\Content\Musics\PinballSpring.xnb
 C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Debug\Content\Fonts\Arcade.spritefont
 C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Debug\Content\Fonts\arcadeclassic.ttf
 C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Debug\Content\Fonts\crackman.ttf
+C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\obj\x86\Debug\PacPac.exe.manifest
+C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\obj\x86\Debug\PacPac.exe
+C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\obj\x86\Debug\PacPac.pdb
 C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Debug\PacPac.exe.manifest
 C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Debug\PacPac.application
 C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Debug\PacPac.exe
@@ -71,10 +76,4 @@ C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\Pa
 C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.xml
 C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.xml
 C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.xml
-C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\obj\x86\Debug\PacPac.exe.manifest
 C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\obj\x86\Debug\PacPac.application
-C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\obj\x86\Debug\PacPac.exe
-C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\obj\x86\Debug\PacPac.pdb
-C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Debug\Content\Fonts\CrackmanTitle.xnb
-C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\obj\x86\Debug\PacPac.csprojResolveAssemblyReference.cache

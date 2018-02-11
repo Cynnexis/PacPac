@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Resources;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -7,10 +8,10 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("PacPac")]
 [assembly: AssemblyProduct("PacPac")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyDescription("PacPac")]
+[assembly: AssemblyCompany("Polytech Corporation")]
+[assembly: AssemblyCopyright("")]
+[assembly: AssemblyTrademark("Polytech Corporation")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -32,3 +33,5 @@ using System.Runtime.InteropServices;
 //      Revision
 //
 [assembly: AssemblyVersion("1.0.0.0")]
+[assembly: NeutralResourcesLanguage("en")]
+

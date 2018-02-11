@@ -138,7 +138,7 @@ namespace PacPac.Grid
 			else
 				Path = path;
 
-			Import(path);
+			Import(Path);
 
 			this.Game.Components.Add(this);
 		}
@@ -253,7 +253,7 @@ namespace PacPac.Grid
 		/// <returns></returns>
 		private Cell Create(Vector2 position, TileType tile)
 		{
-			return new Cell(Game,
+			return new Cell(
 				new BoundingBox(new Vector3(position.X, position.Y, 0),
 				new Vector3(position.X + SPRITE_DIMENSION, position.Y + SPRITE_DIMENSION, 0)),
 				tile);

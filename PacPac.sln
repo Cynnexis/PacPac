@@ -5,19 +5,25 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PacPac", "PacPac\PacPac\PacPac.csproj", "{1423354F-094A-4E4D-B040-997B31BFED84}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "PacPacContent", "PacPac\PacPacContent\PacPacContent.contentproj", "{6B57661B-8D5A-4F80-9B44-C9224A9EA4A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PacPacContent", "PacPac\PacPacContent\PacPacContent.contentproj", "{6B57661B-8D5A-4F80-9B44-C9224A9EA4A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1423354F-094A-4E4D-B040-997B31BFED84}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{1423354F-094A-4E4D-B040-997B31BFED84}.Debug|x86.ActiveCfg = Debug|x86
 		{1423354F-094A-4E4D-B040-997B31BFED84}.Debug|x86.Build.0 = Debug|x86
+		{1423354F-094A-4E4D-B040-997B31BFED84}.Release|Any CPU.ActiveCfg = Release|x86
 		{1423354F-094A-4E4D-B040-997B31BFED84}.Release|x86.ActiveCfg = Release|x86
 		{1423354F-094A-4E4D-B040-997B31BFED84}.Release|x86.Build.0 = Release|x86
+		{6B57661B-8D5A-4F80-9B44-C9224A9EA4A9}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{6B57661B-8D5A-4F80-9B44-C9224A9EA4A9}.Debug|x86.ActiveCfg = Debug|x86
+		{6B57661B-8D5A-4F80-9B44-C9224A9EA4A9}.Release|Any CPU.ActiveCfg = Release|x86
 		{6B57661B-8D5A-4F80-9B44-C9224A9EA4A9}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution

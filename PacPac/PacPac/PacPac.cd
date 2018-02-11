@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PacPac.AbstractSingleton" Collapsed="true">
+    <Position X="2.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAA=</HashCode>
+      <FileName>AbstractSingleton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Controls" Collapsed="true">
+    <Position X="21.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACMAAAAAAAAAAAAAAAAAAAAgAAAAAAIAAAA=</HashCode>
+      <FileName>Controls.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Engine" Collapsed="true">
+    <Position X="19.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ggQAEEACAAAAAwgAAAAKAAgABgEAgBgFAAAABAQggAQ=</HashCode>
+      <FileName>Engine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.FontManager" Collapsed="true">
+    <Position X="2.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IgAAAAAAAABUAAAAAAAAAAAAAABgAAAIQAAAAAAAAAU=</HashCode>
+      <FileName>FontManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Menu" Collapsed="true">
+    <Position X="18" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEEAAAAAACwACAAAIAAAAABABAAAAAQAABAIAAhU=</HashCode>
+      <FileName>Menu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Program" Collapsed="true">
+    <Position X="21.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.SoundManager" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAGAAQCEABABABIAVAAABBAAAgREEQABQAQBQ=</HashCode>
+      <FileName>SoundManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Core.Algorithms.ANode" Collapsed="true">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAJkgAAAYAAAAAAAAAAYQAAAGEAAAAA=</HashCode>
+      <FileName>Core\Algorithms\ANode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Core.Algorithms.AStar" Collapsed="true">
+    <Position X="16.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QgQgAAAAABAAIAIAACQCAAgAAAAAAAAAAIAAAACQAAA=</HashCode>
+      <FileName>Core\Algorithms\AStar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Core.Algorithms.Dijkstra" Collapsed="true">
+    <Position X="14.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAkAAQAABAAAAAACAAAAAAAAAAAAAAAAAAAAAAAMAA=</HashCode>
+      <FileName>Core\Algorithms\Dijkstra.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Core.Algorithms.DNode" Collapsed="true">
+    <Position X="16.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CEAAIAAAACAAAgAAAAIAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Core\Algorithms\DNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Core.Algorithms.Path" Collapsed="true">
+    <Position X="19.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Core\Algorithms\Path.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Core.ComponentRepresentation" Collapsed="true">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAQ=</HashCode>
+      <FileName>Core\Characters\ComponentRepresentation.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PacPac.Core.Ghost" Collapsed="true">
+    <Position X="6.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAUAEAAIHABwAggBAIAACAAAAAAAAEAAAABBAAAIQ=</HashCode>
+      <FileName>Core\Characters\GhostCharacters\Ghost.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PacPac.Core.LivingGear" Collapsed="true">
+    <Position X="7.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAEAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Characters\LivingGear.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PacPac.Core.Pac" Collapsed="true">
+    <Position X="12" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgUAAAAAAAAAAwAggAAQAAAAEAAAgAAACAAAAAgBAAQ=</HashCode>
+      <FileName>Core\Characters\PacCharacter\Pac.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Core.PacRepresentation" Collapsed="true">
+    <Position X="3.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QQTgEQBIAAEAIAQDACCABAAAgARAAAAEADgAAAAAAAQ=</HashCode>
+      <FileName>Core\Characters\PacCharacter\PacRepresentation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Core.Gear" Collapsed="true">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAAAAAgAgAAihIAAIQBBAJAAQwAQAAIABAAAAAA=</HashCode>
+      <FileName>Core\Gear.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Core.Teleporter" Collapsed="true">
+    <Position X="14.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABgAAAAYAQAAAAEAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Core\Teleporter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Core.TeleporterManager" Collapsed="true">
+    <Position X="18" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAgAAAAAAAAAACAAAAAAAAAAAAAAAAAIABAAgAAI=</HashCode>
+      <FileName>Core\TeleporterManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Core.Characters.GhostCharacters.Blinky" Collapsed="true">
+    <Position X="5.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAAAAAIAAwAAAAAAAAAABAAAAAAAAAAAABAQAAQ=</HashCode>
+      <FileName>Core\Characters\GhostCharacters\Blinky.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Core.Characters.GhostCharacters.Clyde" Collapsed="true">
+    <Position X="7.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAEAAAIAAwAAAAAgAAAAAAAAAAAAAAAAABAQAAQ=</HashCode>
+      <FileName>Core\Characters\GhostCharacters\Clyde.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Core.Characters.GhostCharacters.GhostManager" Collapsed="true">
+    <Position X="5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgRAAAACABAAAwAAAAAAAAAAAABAAAQAQAAEEgAAABA=</HashCode>
+      <FileName>Core\Characters\GhostCharacters\GhostManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Core.Characters.GhostCharacters.Inky" Collapsed="true">
+    <Position X="9.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQAAAEAAAIAgwAAAAAgAAAAAAAAAAAAAAAAABAQAAQ=</HashCode>
+      <FileName>Core\Characters\GhostCharacters\Inky.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Core.Characters.GhostCharacters.Pinky" Collapsed="true">
+    <Position X="3" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAEAAAIAAwAAAAAgAAAAAAAAAAAAAAAAABAQAAQ=</HashCode>
+      <FileName>Core\Characters\GhostCharacters\Pinky.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Grid.Exceptions.BoundingBoxException" Collapsed="true">
+    <Position X="18" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Exceptions\BoundingBoxException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Grid.Exceptions.TeleporterException" Collapsed="true">
+    <Position X="16.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Exceptions\TeleporterException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Grid.Exceptions.EmptyMazeFileException" Collapsed="true">
+    <Position X="18" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Grid\Exceptions\EmptyMazeFileException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Grid.Exceptions.InvalidLineLengthException" Collapsed="true">
+    <Position X="14.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Grid\Exceptions\InvalidLineLengthException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Grid.Exceptions.InvalidMazeDimensionException" Collapsed="true">
+    <Position X="16.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Grid\Exceptions\InvalidMazeDimensionException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Core.Exceptions.InfiniteLoopException" Collapsed="true">
+    <Position X="21.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Exceptions\InfiniteLoopException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Grid.Cell" Collapsed="true">
+    <Position X="19.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAgAAAAAAAAAABAAAAAQAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Grid\Cell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacPac.Grid.Maze" Collapsed="true">
+    <Position X="0.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgAAAABACgAwYQaAICIkACCAAAAEAKACQAAAAAAAQ=</HashCode>
+      <FileName>Grid\Maze.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="PacPac.Core.ComponentRepresentationInterface" Collapsed="true">
+    <Position X="14.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Core\Characters\ComponentRepresentationInterface.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PacPac.Core.GhostInterface" Collapsed="true">
+    <Position X="16.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Core\Characters\GhostCharacters\GhostInterface.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PacPac.Core.LivingGearInterface" Collapsed="true">
+    <Position X="18" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Characters\LivingGearInterface.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="PacPac.GameState" Collapsed="true">
+    <Position X="16.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAIAAAAAAABIAAAAAAAAAA=</HashCode>
+      <FileName>GameState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="PacPac.MenuType" Collapsed="true">
+    <Position X="19.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>MenuType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="PacPac.Core.Direction" Collapsed="true">
+    <Position X="14.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAICAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Direction.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="PacPac.Core.Characters.GhostCharacters.GhostState" Collapsed="true">
+    <Position X="18" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAgAABAAAAAAAAAAAAAAAABAAAAAAAAAAAACA=</HashCode>
+      <FileName>Core\Characters\GhostCharacters\GhostState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="PacPac.Grid.TileType" Collapsed="true">
+    <Position X="21.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAECAAAAAAAAQABCIEIAAAQCAAAAAAAAAAA=</HashCode>
+      <FileName>Grid\TileType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="PacPac.Core.OnGhostStateChanged" Collapsed="true">
+    <Position X="18" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Core\Characters\GhostCharacters\Ghost.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="PacPac.Core.OnLookingToChanged" Collapsed="true">
+    <Position X="19.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Characters\PacCharacter\PacRepresentation.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="PacPac.Core.OnMouthStateChanged" Collapsed="true">
+    <Position X="21.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Characters\PacCharacter\PacRepresentation.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="PacPac.Core.OnDieStateChanged" Collapsed="true">
+    <Position X="14.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Characters\PacCharacter\PacRepresentation.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="PacPac.Core.OnTextureChanged" Collapsed="true">
+    <Position X="19.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Gear.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="PacPac.Core.OnDimensionChanged" Collapsed="true">
+    <Position X="16.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Gear.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="PacPac.Core.OnPositionChanged" Collapsed="true">
+    <Position X="14.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Gear.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="PacPac.Core.OnSizeChanged" Collapsed="true">
+    <Position X="16.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Gear.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="PacPac.Core.OnSpeedChanged" Collapsed="true">
+    <Position X="18" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Gear.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

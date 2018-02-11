@@ -147,14 +147,12 @@ namespace PacPac.Core
 							lastDirection = Strategy(gameTime);
 							break;
 						case GhostState.EDIBLE:
-							//lastDirection = Strategy(gameTime);
 							Vector2? possiblePlace = GenerateRandomPlace();
 
 							if (possiblePlace == null)
 								lastDirection = null;
 							else
 							{
-#pragma warning disable CS0168
 								try
 								{
 									Dijkstra dijkstra = new Dijkstra(GhostManager.Instance.Map);
@@ -163,6 +161,7 @@ namespace PacPac.Core
 										(Vector2) possiblePlace
 									);
 								}
+#pragma warning disable CS0168
 								catch (InfiniteLoopException ignored) { }
 #pragma warning restore CS0168
 							}

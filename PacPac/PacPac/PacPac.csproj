@@ -16,8 +16,8 @@
     <XnaProfile>Reach</XnaProfile>
     <XnaCrossPlatformGroupID>ac89b60f-cb94-405d-ab4a-e0d2891c22de</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
-    <ApplicationIcon>Game.ico</ApplicationIcon>
-    <Thumbnail>pacman_rc.png</Thumbnail>
+    <ApplicationIcon>pacman.ico</ApplicationIcon>
+    <Thumbnail>pacman.png</Thumbnail>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\Publish\</PublishUrl>
     <Install>true</Install>
@@ -87,7 +87,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractSingleton.cs" />
-    <Compile Include="Collider.cs" />
     <Compile Include="Controls.cs" />
     <Compile Include="Core\Algorithms\ANode.cs" />
     <Compile Include="Core\Algorithms\AStar.cs" />
@@ -135,7 +134,8 @@
     <Content Include="GameThumbnail.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </Content>
-    <Content Include="pacman_rc.png" />
+    <Content Include="pacman.ico" />
+    <Content Include="pacman.png" />
     <Content Include="Resources\Maps\maze1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -167,7 +167,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
+    <None Include="PacPac.cd" />
     <None Include="PacPac_CléTemporaire.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

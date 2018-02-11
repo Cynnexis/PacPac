@@ -350,5 +350,8 @@ namespace PacPac
 }
 
 /* COMMIT:
- * Code commented
+ * UML Class Diagram added
+ * Minor bug due to comments fixed
+ * README.md updated
+ * App Icon added
 */
