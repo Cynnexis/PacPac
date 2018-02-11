@@ -13,6 +13,10 @@ namespace PacPac.Core
 	public delegate void OnMouthStateChanged(MouthState month);
 	public delegate void OnDieStateChanged(bool isDying);
 
+	/// <summary>
+	/// Manage the textures and animation for <see cref="Pac"/>
+	/// </summary>
+	/// <seealso cref="Pac"/>
 	public class PacRepresentation : ComponentRepresentation
 	{
 		public enum MouthState

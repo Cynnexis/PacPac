@@ -16,14 +16,25 @@ using System.Threading;
 namespace PacPac
 {
 	/// <summary>
-	/// This is the main type for your game
+	/// Game logic. All instances of all game components are placed here
 	/// </summary>
-	public class Engine : Microsoft.Xna.Framework.Game
+	/// <seealso cref="GameState"/>
+	/// <seealso cref="PacPac.Core"/>
+	public class Engine : Game
 	{
+		#region Attributes & Properties
 		private GraphicsDeviceManager graphics;
 		private SpriteBatch spriteBatch;
 
+		/// <summary>
+		/// State of the game
+		/// </summary>
+		/// <seealso cref="GameState"/>
 		private GameState state;
+
+		/// <summary>
+		/// Current game time
+		/// </summary>
 		private GameTime gameTime;
 
 		private Menu menu;
@@ -33,7 +44,7 @@ namespace PacPac
 		private Inky inky;
 		private Clyde clyde;
 		private Pac pac;
-		private int lastPacLife;
+		private int lastPacLife; // Save current pac life for the next level
 
 		private int score;
 		private int bonus; // The point the 'score'	attribute just obtained
@@ -46,6 +57,10 @@ namespace PacPac
 		/// </summary>
 		private bool pacDied;
 
+		/// <summary>
+		/// Current state of the game
+		/// </summary>
+		/// <seealso cref="GameState"/>
 		public GameState State
 		{
 			get { return state; }
@@ -54,13 +69,20 @@ namespace PacPac
 				GameState oldValue = state;
 				state = value;
 
+				// If the state juste changed its value from StartMenu to Playing, ...
 				if (oldValue == GameState.StartMenu && state == GameState.Playing)
 				{
+					// ... then play music and initialise GhostManager bu setting the current game time
 					SoundManager.Instance.PlayMusic();
 					GhostManager.Instance.PlayBeginning = this.gameTime != null ? (int) this.gameTime.TotalGameTime.TotalSeconds : 0;
 				}
 			}
 		}
+
+		/// <summary>
+		/// The current score of the game. When the value is changed, the attribute <see cref="Bonus"/> is changed
+		/// </summary>
+		/// <seealso cref="Bonus"/>
 		public int Score
 		{
 			get { return score; }
@@ -75,6 +97,10 @@ namespace PacPac
 			}
 		}
 
+		/// <summary>
+		/// The difference between the old <see cref="Score"/> and the new one. This value is saved for the next second.
+		/// </summary>
+		/// <seealso cref="Score"/>
 		public int Bonus
 		{
 			get { return bonus; }
@@ -97,12 +123,22 @@ namespace PacPac
 			}
 		}
 
+		/// <summary>
+		/// The current level of the game
+		/// </summary>
 		public int Level
 		{
 			get { return level; }
-			set { level = value; }
+			protected set { level = value; }
 		}
+		#endregion
 
+		#region Constructor & Initialization
+		/// <summary>
+		/// Default constructor. Initialize the graphic device manager, the content root directory and some attributes
+		/// </summary>
+		/// <seealso cref="GraphicsDeviceManager"/>
+		/// <seealso cref="ContentManager"/>
 		public Engine()
 		{
 			graphics = new GraphicsDeviceManager(this);
@@ -112,13 +148,19 @@ namespace PacPac
 			pacDied = false;
 		}
 
+		/// <summary>
+		/// Create a new instance of the game by initilizing all game components
+		/// </summary>
 		public void NewGame()
 		{
+			// Clear the list of all game components
 			this.Components.Clear();
 
+			// Stop all musics
 			SoundManager.Instance.StopMusic();
 			SoundManager.Instance.StopInvincible();
 
+			// Create new instances of game components
 			menu = new Menu(this, pacDied ? MenuType.GAMEOVER : MenuType.START);
 			maze = new Maze(this);
 			blinky = new Blinky(this);
@@ -128,11 +170,14 @@ namespace PacPac
 
 			pac = new Pac(this, maze);
 
+			// If there was a previous level before this new game, do not reset pac's life
 			if (lastPacLife > 0)
 				pac.Life = lastPacLife;
 
+			// (Re)-initialize GhostManager
 			GhostManager.Instance.Initialize(maze, pac, blinky, new Ghost[] { pinky, inky, clyde });
 
+			// Initialize all game components
 			menu.Initialize();
 			maze.Initialize();
 			blinky.Initialize();
@@ -144,7 +189,9 @@ namespace PacPac
 			// Reset pacDied attribute
 			pacDied = false;
 		}
+		#endregion
 
+		#region Game Overrides
 		/// <summary>
 		/// Allows the game to perform any initialization it needs to before starting to run.
 		/// This is where it can query for any required services and load any non-graphic
@@ -176,8 +223,7 @@ namespace PacPac
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
-
-			// TODO: use this.Content to load your game content here
+			
 			graphics.PreferredBackBufferWidth = 1024;
 			graphics.PreferredBackBufferHeight = 620;
 			graphics.ApplyChanges();
@@ -203,9 +249,12 @@ namespace PacPac
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
 				this.Exit();
 
+			// Update current game time
 			this.gameTime = gameTime;
+			// Update GhostManager
 			GhostManager.Instance.Update(gameTime);
 
+			// Check win/death
 			if (State == GameState.Playing)
 			{
 				// Check if pac ate all pacdot
@@ -296,6 +345,7 @@ namespace PacPac
 
 			base.Draw(gameTime);
 		}
+		#endregion
 	}
 }
 
@@ -303,8 +353,6 @@ namespace PacPac
 // TODO: Fix lag due to ghosts (choose random spot)
 
 /* COMMIT:
- * Dynamic background added for menu screen
- * Pac & ghosts sprites added in menu screen
- * Bonus system added
- * The life of pac is saved during the transiton of level
+ * Collision bug which allowed pacpac to go through the wall to go to ghosts startup point fixed
+ * Code half commented
 */

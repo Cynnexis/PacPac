@@ -6,6 +6,10 @@ using System.Text;
 
 namespace PacPac.Core.Algorithms
 {
+	/// <summary>
+	/// DNode for Dijkstra algorithm
+	/// </summary>
+	/// <seealso cref="Dijkstra"/>
 	public class DNode
 	{
 		public static int INFINITY = int.MaxValue;

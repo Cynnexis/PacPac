@@ -6,6 +6,11 @@ using System.Text;
 
 namespace PacPac.Core.Algorithms
 {
+	/// <summary>
+	/// Node for the A* algorithm
+	/// </summary>
+	/// <seealso cref="AStar"/>
+	[Obsolete]
 	public class ANode
 	{
 		public static int INFINITY = int.MaxValue;

@@ -12,10 +12,11 @@ namespace PacPac.Core.Characters.GhostCharacters
 	/// </summary>
 	public class GhostManager : AbstractSingleton
 	{
+		#region Attributes, Instance & Properties
 		private static GhostManager instance = new GhostManager();
 
 		/// <summary>
-		/// Each <c>COUNTDOWN_RELEASE_GHOST</c>, <c>GhostManager</c> releases a ghost from the startup point to the maze.
+		/// Each <c>COUNTDOWN_RELEASE_GHOST</c> seconds, <c>GhostManager</c> releases a ghost from the startup point to the maze.
 		/// </summary>
 		public static int COUNTDOWN_RELEASE_GHOST = 10; // seconds
 
@@ -25,40 +26,64 @@ namespace PacPac.Core.Characters.GhostCharacters
 		private Pac pac;
 		private Vector2 entrance;
 		
+		/// <summary>
+		/// Unique instance of GhostManager in the program
+		/// </summary>
 		public static GhostManager Instance
 		{
 			get { return instance; }
 		}
 
 		/// <summary>
-		/// In seconds
+		/// Indicate the time when the game beginning (after the user clicked on "Play" button). It is in Seconds
 		/// </summary>
 		public int PlayBeginning
 		{
 			get { return gameBeginning; }
 			set { gameBeginning = value; }
 		}
+
+		/// <summary>
+		/// List of all ghosts to manage
+		/// </summary>
 		public List<Ghost> Ghosts
 		{
 			get { return ghosts; }
 			set { ghosts = value; }
 		}
+
+		/// <summary>
+		/// Maze
+		/// </summary>
 		public Maze Map
 		{
 			get { return maze; }
 			set { maze = value; }
 		}
+
+		/// <summary>
+		/// The pac the user is playing
+		/// </summary>
 		public Pac Pac
 		{
 			get { return pac; }
 			set { pac = value; }
 		}
+
+		/// <summary>
+		/// The entrance of the maze (Blinky's starting point)
+		/// </summary>
 		public Vector2 Entrance
 		{
 			get { return entrance; }
 			set { entrance = value; }
 		}
+		#endregion
 
+		#region Constructor & Initialization
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		private GhostManager() : base()
 		{
 			PlayBeginning = -1;
@@ -66,6 +91,13 @@ namespace PacPac.Core.Characters.GhostCharacters
 			IsInitialized = false;
 		}
 
+		/// <summary>
+		/// Initialize the instance. This method MUST BE called before using this class.
+		/// </summary>
+		/// <param name="maze">The current maze</param>
+		/// <param name="pac">The pac the user is playing</param>
+		/// <param name="leader">The leader of the ghost (often, it is Blinky, the red ghost)</param>
+		/// <param name="others">Array containing the others ghosts (all ghosts except the leader)</param>
 		public void Initialize(Maze maze, Pac pac, Ghost leader, Ghost[] others)
 		{
 			PlayBeginning = -1;
@@ -105,7 +137,12 @@ namespace PacPac.Core.Characters.GhostCharacters
 			
 			IsInitialized = true;
 		}
+		#endregion
 
+		/// <summary>
+		/// Update the current situation. This method MUST BE called at every tick of the game.
+		/// </summary>
+		/// <param name="gameTime">The current game time</param>
 		public void Update(GameTime gameTime)
 		{
 			if (PlayBeginning != -1)

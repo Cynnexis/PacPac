@@ -8,6 +8,10 @@ using System.Text;
 
 namespace PacPac.Core.Algorithms
 {
+	/// <summary>
+	/// The Dijkstra algorithm.
+	/// </summary>
+	/// <seealso cref="DNode"/>
 	public class Dijkstra
 	{
 		private DNode[,] nodes;
@@ -39,6 +43,10 @@ namespace PacPac.Core.Algorithms
 			set { this[indexes.X, indexes.Y] = value; }
 		}
 
+		/// <summary>
+		/// Default constructor
+		/// </summary>
+		/// <param name="maze">The current maze</param>
 		public Dijkstra(Maze maze)
 		{
 			if (maze == null)
@@ -50,6 +58,9 @@ namespace PacPac.Core.Algorithms
 			ResetNodes();
 		}
 
+		/// <summary>
+		/// Reset all attributes of the class
+		/// </summary>
 		public void ResetNodes()
 		{
 			for (int i = 0, maxi = Map.Width; i < maxi; i++)
@@ -64,6 +75,14 @@ namespace PacPac.Core.Algorithms
 			}
 		}
 
+		/// <summary>
+		/// Compute the direction to go to <paramref name="end"/> from starting from <paramref name="start"/>
+		/// </summary>
+		/// <param name="start">The starting point</param>
+		/// <param name="end">The destination</param>
+		/// <returns>Return the direction the component should go to go to <paramref name="end"/>.
+		/// If there is no way to go the destination, or the component is in the destination, the method
+		/// returns <c>null></c></returns>
 		public Direction? ComputeDirection(Vector2 start, Vector2 end)
 		{
 			if (start == null || end == null)
@@ -149,7 +168,7 @@ namespace PacPac.Core.Algorithms
 
 			return result;
 		}
-
+		
 		private void CheckNode(Vector2 current, DNode z, Vector2 coordinates)
 		{
 			if (coordinates.X > 0 && coordinates.X < Map.Width &&

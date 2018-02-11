@@ -76,3 +76,5 @@ C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\Pa
 C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Release\PacPac.application
 C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\obj\x86\Release\PacPac.exe.manifest
 C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\obj\x86\Release\PacPac.application
+C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Release\Content\Fonts\CrackmanTitle.xnb
+C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Release\Content\Musics\PinballSpring.xnb

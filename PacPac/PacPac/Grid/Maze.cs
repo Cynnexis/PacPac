@@ -10,8 +10,12 @@ using PacPac.Core;
 
 namespace PacPac.Grid
 {
+	/// <summary>
+	/// Maze of the game
+	/// </summary>
 	public class Maze : Gear
 	{
+		#region Attributes & Properties
 		private Cell[,] cells = new Cell[28, 32];
 		private int width;
 		private int height;
@@ -28,11 +32,20 @@ namespace PacPac.Grid
 		private Texture2D tx_pacdot;
 		private Texture2D tx_fruit;
 
+		/// <summary>
+		/// Bidimensionnal array containing all the cells of the grid
+		/// </summary>
 		public Cell[,] Cells
 		{
 			get { return cells; }
 		}
 
+		/// <summary>
+		/// Bidimensionnal array containing all the cells of the grid
+		/// </summary>
+		/// <param name="x">The column (starting from 0)</param>
+		/// <param name="y">The row (starting from 0)</param>
+		/// <returns>The cell at (<paramref name="x"/> ; <paramref name="y"/>)</returns>
 		public Cell this[int x, int y]
 		{
 			get
@@ -45,53 +58,96 @@ namespace PacPac.Grid
 				cells[x, y] = value;
 			}
 		}
+		/// <summary>
+		/// Bidimensionnal array containing all the cells of the grid
+		/// </summary>
+		/// <param name="x">The column (starting from 0)</param>
+		/// <param name="y">The row (starting from 0)</param>
+		/// <returns>The cell at (<paramref name="x"/> ; <paramref name="y"/>)</returns>
 		public Cell this[float x, float y]
 		{
 			get { return this[(int) x, (int) y]; }
 			set { this[(int) x, (int) y] = value; }
 		}
+		/// <summary>
+		/// Bidimensionnal array containing all the cells of the grid
+		/// </summary>
+		/// <param name="indexes">The coordinates of the cell, such that <c>x</c> if the column and <c>y</c> the row (both starting from 0)</param>
+		/// <returns>The cell at (<paramref name="indexes"/>.X ; <paramref name="y"/>.Y)</returns>
 		public Cell this[Vector2 indexes]
 		{
 			get { return this[indexes.X, indexes.Y]; }
 			set { this[indexes.X, indexes.Y] = value; }
 		}
 
+		/// <summary>
+		/// Width of the maze
+		/// </summary>
 		public int Width
 		{
 			get { return width; }
 			protected set { width = value; }
 		}
 
+		/// <summary>
+		/// Height of the maze
+		/// </summary>
 		public int Height
 		{
 			get { return height; }
 			protected set { height = value; }
 		}
 
+		/// <summary>
+		/// Path to the file where the data of the maze is stored
+		/// </summary>
 		public string Path
 		{
 			get { return path; }
 			set { path = value; }
 		}
 
+		/// <summary>
+		/// Teleporter Manager
+		/// </summary>
 		public TeleporterManager TM
 		{
 			get { return tm; }
 			set { tm = value; }
 		}
+		#endregion
 
-		public Maze(Game game) : base(game)
+		#region Constructor
+		/// <summary>
+		/// Default Constructor. Initialize the teleporter manager <see cref="TM"/>, and import the maze from file.
+		/// </summary>
+		/// <param name="game">The game instance, different from <c>null</c></param>
+		/// <param name="path">The path of the file where the maze data is stored. If it is empty, a default file is chosen</param>
+		/// <exception cref="ArgumentNullException">Throw if <paramref name="game"/> is null</exception>
+		public Maze(Game game, string path = "") : base(game)
 		{
+			if (game == null)
+				throw new ArgumentNullException();
+
 			TM = new TeleporterManager();
 			Width = 0;
 			Height = 0;
 
-			Path = "Resources/Maps/test_win.txt";
+			if (path.Equals(""))
+				Path = "Resources/Maps/maze1.txt";
+			else
+				Path = path;
+
 			Import(path);
 
 			this.Game.Components.Add(this);
 		}
+		#endregion
 
+		/// <summary>
+		/// Import a maze from a file
+		/// </summary>
+		/// <param name="path">Path file</param>
 		public void Import(string path)
 		{
 			Path = path;
@@ -189,6 +245,12 @@ namespace PacPac.Grid
 #endif
 		}
 
+		/// <summary>
+		/// Create an instance of Cell
+		/// </summary>
+		/// <param name="position"></param>
+		/// <param name="tile"></param>
+		/// <returns></returns>
 		private Cell Create(Vector2 position, TileType tile)
 		{
 			return new Cell(Game,
@@ -196,18 +258,29 @@ namespace PacPac.Grid
 				new Vector3(position.X + SPRITE_DIMENSION, position.Y + SPRITE_DIMENSION, 0)),
 				tile);
 		}
+		/// <summary>
+		/// Create an instance of Cell
+		/// </summary>
+		/// <param name="position"></param>
+		/// <param name="i"></param>
+		/// <returns></returns>
 		private Cell Create(Vector2 position, int i)
 		{
 			return Create(position, (TileType) Enum.Parse(typeof(TileType), i.ToString()));
 		}
 
+		/// <summary>
+		/// Search all the cell where theire tile type is <paramref name="tile"/>.
+		/// </summary>
+		/// <param name="tile">The type to search</param>
+		/// <returns>The list of all corresponding cells, different from <c>null</c></returns>
 		public List<Cell> SearchTile(TileType tile)
 		{
 			List<Cell> list = new List<Cell>();
 
 			for (int i = 0, maxi = cells.GetLength(0); i < maxi; i++)
 				for (int j = 0, maxj = cells.GetLength(1); j < maxj; j++)
-					if (cells[i, j].Tile == tile)
+					if (cells[i, j] != null && cells[i, j].Tile == tile)
 						list.Add(cells[i, j]);
 
 			return list;
@@ -219,11 +292,12 @@ namespace PacPac.Grid
 		/// </summary>
 		public override void Initialize()
 		{
-			// TODO: Add your initialization code here
-
 			base.Initialize();
 		}
 
+		/// <summary>
+		/// Load Contents from resources
+		/// </summary>
 		protected override void LoadContent()
 		{
 			tx_empty = Game.Content.Load<Texture2D>(@"Images\empty_black");
@@ -243,8 +317,6 @@ namespace PacPac.Grid
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public override void Update(GameTime gameTime)
 		{
-			// TODO: Add your update code here
-
 			base.Update(gameTime);
 		}
 
@@ -256,6 +328,7 @@ namespace PacPac.Grid
 				int nbSpriteHeight = cells.GetLength(1);
 
 				Sprite.Begin();
+				// Draw all cells
 				for (int i = 0; i < nbSpriteWidth; i++)
 				{
 					for (int j = 0; j < nbSpriteHeight; j++)
@@ -271,6 +344,11 @@ namespace PacPac.Grid
 			base.Draw(gameTime);
 		}
 
+		/// <summary>
+		/// Get the corresponding texture according to <paramref name="tile"/> value.
+		/// </summary>
+		/// <param name="tile">The tile type to convert into a texture</param>
+		/// <returns>The corresponding texture</returns>
 		public Texture2D GetTileTexture(TileType tile)
 		{
 			switch (tile)

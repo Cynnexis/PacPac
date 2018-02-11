@@ -16,12 +16,19 @@ using PacPac.Core.Characters.GhostCharacters;
 namespace PacPac.Core
 {
 	/// <summary>
-	/// This is a game component that implements IUpdateable.
+	/// Pac class
 	/// </summary>
 	public class Pac : LivingGear
 	{
 		#region Constants
+		/// <summary>
+		/// Default number of life at the beginning of the game
+		/// </summary>
 		public static int DEFAULT_LIFE = 3;
+
+		/// <summary>
+		/// Default time of invincibility for pac when it eats a fruit.
+		/// </summary>
 		public static int DEFAULT_INVINCIBLE_TIMEOUT_SECONDS = 10;
 		#endregion
 
@@ -33,18 +40,27 @@ namespace PacPac.Core
 
 		private Timer timer = null;
 
+		/// <summary>
+		/// Contains all textures and graphic logic
+		/// </summary>
 		public PacRepresentation Representation
 		{
 			get { return representation; }
 			set { representation = value; }
 		}
 
+		/// <summary>
+		/// The current number of life
+		/// </summary>
 		public int Life
 		{
 			get { return life; }
 			set { life = value; }
 		}
 
+		/// <summary>
+		/// Tell if pac is in Invincibility mode. If yes, then the property update the mode of the ghosts
+		/// </summary>
 		public bool Invincible
 		{
 			get { return invincible; }
@@ -87,6 +103,11 @@ namespace PacPac.Core
 		#endregion
 
 		#region Constructor
+		/// <summary>
+		/// Default constructor
+		/// </summary>
+		/// <param name="game">The game instance</param>
+		/// <param name="maze">The current maze</param>
 		public Pac(Game game, Maze maze) : base(game)
 		{
 			Representation = new PacRepresentation();
@@ -134,6 +155,9 @@ namespace PacPac.Core
 		#endregion
 
 		#region LivingGear Override
+		/// <summary>
+		/// Kill pac and play the dying animation.
+		/// </summary>
 		public override void Die()
 		{
 			Representation.IsDying = true;
@@ -187,7 +211,6 @@ namespace PacPac.Core
 		/// </summary>
 		public override void Initialize()
 		{
-			// TODO: Add your initialization code here
 			this.Speed = new Vector2(2, 2);
 
 			base.Initialize();
@@ -207,8 +230,6 @@ namespace PacPac.Core
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public override void Update(GameTime gameTime)
 		{
-			// TODO: Add your update code here
-
 			if (State == GameState.Playing)
 			{
 				Representation.Update(gameTime);
@@ -241,46 +262,54 @@ namespace PacPac.Core
 					}
 
 					// Check if the move is valid
+
 					Vector2 tile = ConvertPositionToTileIndexes();
-					// Get the tile toward pac
-					Cell cellToward = null;
-					bool exceptionReached = false;
-					try
-					{
-						switch (Representation.LookingTo)
-						{
-							case Direction.UP:
-								cellToward = maze[(int)tile.X, (int)tile.Y - 1];
-								break;
-							case Direction.DOWN:
-								cellToward = maze[(int)tile.X, (int)tile.Y + 1];
-								break;
-							case Direction.LEFT:
-								cellToward = maze[(int)tile.X - 1, (int)tile.Y];
-								break;
-							case Direction.RIGHT:
-								cellToward = maze[(int)tile.X + 1, (int)tile.Y];
-								break;
-							default:
-								cellToward = maze[(int)tile.X + 1, (int)tile.Y];
-								break;
-						}
-					}
-					catch (IndexOutOfRangeException ignored)
-					{
-						Console.Error.WriteLine(ignored.StackTrace);
-						bool didPacTeleport = maze.TM.Teleport(this);
 
-						if (!didPacTeleport)
-						{
-							Position = oldPos;
-							exceptionReached = true;
-						}
-					}
-
-					// Check if pac can go forward
-					if (!exceptionReached && cellToward != null && Dimension.Intersects(cellToward.Dimension) && Cell.IsTileTypeBlock(cellToward.Tile))
+					if (Cell.IsTileTypeBlock(maze[tile].Tile))
 						Position = oldPos;
+					else
+					{
+						// Get the tile toward pac
+						Cell cellToward = null;
+						bool exceptionReached = false;
+						try
+						{
+							switch (Representation.LookingTo)
+							{
+								case Direction.UP:
+									cellToward = maze[(int)tile.X, (int)tile.Y - 1];
+									break;
+								case Direction.DOWN:
+									cellToward = maze[(int)tile.X, (int)tile.Y + 1];
+									break;
+								case Direction.LEFT:
+									cellToward = maze[(int)tile.X - 1, (int)tile.Y];
+									break;
+								case Direction.RIGHT:
+									cellToward = maze[(int)tile.X + 1, (int)tile.Y];
+									break;
+								default:
+									cellToward = maze[(int)tile.X + 1, (int)tile.Y];
+									break;
+							}
+						}
+#pragma warning disable CS0168 // La variable est déclarée mais jamais utilisée
+						catch (IndexOutOfRangeException ignored)
+						{
+							bool didPacTeleport = maze.TM.Teleport(this);
+
+							if (!didPacTeleport)
+							{
+								Position = oldPos;
+								exceptionReached = true;
+							}
+						}
+#pragma warning restore CS0168 // La variable est déclarée mais jamais utilisée
+
+						// Check if pac can go forward
+						if (!exceptionReached && cellToward != null && Dimension.Intersects(cellToward.Dimension) && Cell.IsTileTypeBlock(cellToward.Tile))
+							Position = oldPos;
+					}
 
 					Ghost ghostDetected = null;
 					if (GhostManager.Instance.IsInitialized && GhostManager.Instance.Ghosts != null)

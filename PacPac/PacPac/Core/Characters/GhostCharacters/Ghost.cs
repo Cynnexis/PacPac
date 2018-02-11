@@ -14,13 +14,13 @@ namespace PacPac.Core
 {
 	public delegate void OnGhostStateChanged(GhostState state);
 
+	/// <summary>
+	/// Abstract Ghost class
+	/// </summary>
 	public abstract class Ghost : LivingGear, GhostInterface
 	{
+		#region Attributes & Properties
 		private GhostState state;
-		/*private bool edible;
-		private bool still;
-		private bool isMovingToMaze;
-		private bool eaten;*/
 		private bool possessed;
 
 		/// <summary>
@@ -35,9 +35,20 @@ namespace PacPac.Core
 		/// </summary>
 		private Direction? lastDirection;
 
+		/// <summary>
+		/// The ghost main texture, that all children of the class <see cref="Ghost"/> should change.
+		/// </summary>
 		protected Texture2D tx_ghost;
+
+		/// <summary>
+		/// The edible texture. The children of the class can change it, but it not required.
+		/// </summary>
 		protected Texture2D tx_edible;
 
+		/// <summary>
+		/// The current state of the ghost
+		/// </summary>
+		/// <seealso cref="GhostState"/>
 		public GhostState State
 		{
 			get { return state; }
@@ -48,7 +59,7 @@ namespace PacPac.Core
 
 				if (oldValue != state)
 				{
-					Refresh();
+					Refresh(); // Refresh the texture of the ghost
 					lastDirection = null;
 					currentTileIndexes = new Vector2(-1, -1);
 					OnGhostStateChangedAction?.Invoke(state);
@@ -68,13 +79,26 @@ namespace PacPac.Core
 			set { possessed = true; }
 		}
 
+		/// <summary>
+		/// Delegate called when the current state of the ghost is changed
+		/// </summary>
 		public OnGhostStateChanged OnGhostStateChangedAction { get; set; }
+		#endregion
 
+		#region Constructor
+		/// <summary>
+		/// Default constructor. Initialize the state to <c>INITIALIZING</c>.
+		/// </summary>
+		/// <param name="game"></param>
 		public Ghost(Game game) : base(game) {
 			State = GhostState.INITIALIZING;
 			currentTileIndexes = new Vector2(-1, -1);
 		}
+		#endregion
 
+		/// <summary>
+		/// Refresh the texture of the ghost accoridng to its state
+		/// </summary>
 		public void Refresh()
 		{
 			if (State == GhostState.EDIBLE)
@@ -85,13 +109,25 @@ namespace PacPac.Core
 				Texture = tx_ghost;
 		}
 
+		/// <summary>
+		/// Kill the ghost
+		/// </summary>
 		public override void Die()
 		{
 			State = GhostState.EATEN;
 		}
 
+		/// <summary>
+		/// Strategy that all children of the class <see cref="Ghost"/> must implement.
+		/// </summary>
+		/// <param name="gameTime">The current game time</param>
+		/// <returns></returns>
 		public abstract Direction? Strategy(GameTime gameTime);
 
+		/// <summary>
+		/// Make the ghost move
+		/// </summary>
+		/// <param name="gameTime"></param>
 		public void Move(GameTime gameTime)
 		{
 			if (GhostManager.Instance.IsInitialized)
@@ -147,6 +183,10 @@ namespace PacPac.Core
 			}
 		}
 		
+		/// <summary>
+		/// Change the position of the ghost according to <paramref name="direction"/>
+		/// </summary>
+		/// <param name="direction">The direction where the ghost must go</param>
 		public void MoveToDirection(Direction direction)
 		{
 			switch (direction)
@@ -168,6 +208,10 @@ namespace PacPac.Core
 			}
 		}
 
+		/// <summary>
+		/// Move the ghost from the starting point to the entrance of the maze (outside the starting point)
+		/// </summary>
+		/// <returns></returns>
 		public Direction? MoveToMaze()
 		{
 			if (State == GhostState.MOVING_MAZE)
@@ -192,6 +236,10 @@ namespace PacPac.Core
 			return null;
 		}
 
+		/// <summary>
+		/// Move the ghost to the entrance of the maze
+		/// </summary>
+		/// <returns></returns>
 		public Direction? MoveToStart()
 		{
 			Dijkstra dijkstra = new Dijkstra(GhostManager.Instance.Map);
@@ -213,6 +261,10 @@ namespace PacPac.Core
 			return null;
 		}
 
+		/// <summary>
+		/// Generate a random position in the maze which is available
+		/// </summary>
+		/// <returns>The available position. If the <see cref="GhostManager"/> is not initialized, return <c>null</c></returns>
 		public Vector2? GenerateRandomPlace()
 		{
 			if (GhostManager.Instance.IsInitialized) {
@@ -245,7 +297,6 @@ namespace PacPac.Core
 		public override void Initialize()
 		{
 			Position = StartingPoint;
-			//currentTileIndexes = ConvertPositionToTileIndexes();
 			Speed = new Vector2(1.5f, 1.5f);
 
 			base.Initialize();

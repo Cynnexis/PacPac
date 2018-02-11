@@ -8,6 +8,13 @@ using System.Text;
 
 namespace PacPac.Core.Algorithms
 {
+	/// <summary>
+	/// The A* algorithm. This class is deprecated because the implementation does not work properly. Indeed, the path returned
+	/// by <see cref="ComputePath(Vector2, Vector2)"/> is not continuous : some tiles are missing.
+	/// This class should not be use. Instead, the class <see cref="Dijkstra"/> give a functionnal implementation.
+	/// </summary>
+	/// <seealso cref="ANode"/>
+	/// <seealso cref="Dijkstra"/>
 	[Obsolete]
 	public class AStar
 	{
@@ -48,6 +55,13 @@ namespace PacPac.Core.Algorithms
 			Path = new Path();
 		}
 
+		/// <summary>
+		/// Compute the path to go from <paramref name="start"/> to <paramref name="end"/>
+		/// </summary>
+		/// <param name="start">The starting point</param>
+		/// <param name="end">The end point</param>
+		/// <returns>Return the path from <paramref name="start"/> to <paramref name="end"/></returns>
+		[Obsolete]
 		public Path ComputePath(Vector2 start, Vector2 end)
 		{
 			if (Path == null)

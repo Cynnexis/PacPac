@@ -478,6 +478,24 @@
       <Output>C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Release\Content\Fonts\Crackman.xnb</Output>
       <Time>2018-02-09T12:00:23.8769184+01:00</Time>
     </Item>
+    <Item>
+      <Source>Fonts\CrackmanTitle.spritefont</Source>
+      <Name>Fonts\CrackmanTitle</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Release\Content\Fonts\CrackmanTitle.xnb</Output>
+      <Time>2018-02-10T13:24:33.7210321+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Musics\PinballSpring.mp3</Source>
+      <Name>Musics\PinballSpring</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Valentin\Google Drive\Cours\3e année\ISI\CM\Workspace\PacPac\PacPac\PacPac\bin\x86\Release\Content\Musics\PinballSpring.xnb</Output>
+      <Time>2018-02-10T11:36:58.8429623+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{6B57661B-8D5A-4F80-9B44-C9224A9EA4A9}</ContentProjectGUID>

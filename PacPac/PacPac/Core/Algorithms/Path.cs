@@ -6,6 +6,13 @@ using System.Text;
 
 namespace PacPac.Core.Algorithms
 {
+	/// <summary>
+	/// Class to manage a Path.
+	/// This class is used in A* algorithm (see <see cref="AStar"/>), and is now deprecated.
+	/// </summary>
+	/// <seealso cref="AStar"/>
+	/// <seealso cref="Dijkstra"/>
+	[Obsolete]
 	public class Path : List<Vector2>
 	{
 		#region Variables & Properties

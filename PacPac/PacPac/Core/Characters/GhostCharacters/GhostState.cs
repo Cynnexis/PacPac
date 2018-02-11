@@ -6,7 +6,7 @@ using System.Text;
 namespace PacPac.Core.Characters.GhostCharacters
 {
 	/// <summary>
-	/// Enum the differents possible state of a ghost
+	/// Enumerate the differents possible state of a ghost
 	/// </summary>
 	public enum GhostState
 	{
